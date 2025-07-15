@@ -6,7 +6,7 @@ import cors from "cors";
 import apiLimiter from "../src/middlewares/rate-limit-validator.js";
 import authRoutes from "../src/auth/auth.routes.js";
 import userRoutes from "../src/user/user.routes.js";
-import { createDefaultAdmin } from "../src/utils/defaultUser.js"; // <--- 1. IMPORTA LA FUNCIÓN
+import { createDefaultAdmin } from "../src/utils/defaultUser.js";
 
 
 const middlewares = (app) => {
