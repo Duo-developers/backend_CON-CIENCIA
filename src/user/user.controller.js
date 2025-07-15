@@ -89,39 +89,34 @@ export const updateUser = async (req, res) => {
 
 export const updatePassword = async (req, res) => {
     try {
-        const { usuario } = req
-        const { currentPassword } = req.body
-        const { newPassword } = req.body
+        const { usuario } = req;
+        const { currentPassword, newPassword } = req.body;
 
-        const oldPassword = await verify(usuario.password, currentPassword)
+        const isPasswordValid = await verify(usuario.password, currentPassword);
 
-
-        if(!oldPassword){
+        if (!isPasswordValid) {
             return res.status(400).json({
                 success: false,
-                msg: "Old password does not match"
-            })
+                msg: "Current password does not match"
+            });
         }
+        
+        const isSamePassword = await verify(usuario.password, newPassword);
 
-        const user = await User.findById(usuario._id)
-
-        const matchOldAndNewPassword = await verify(user.password, newPassword)
-
-        if(matchOldAndNewPassword){
+        if (isSamePassword) {
             return res.status(400).json({
                 success: false,
                 msg: "The new password cannot be the same as the previous one"
-            })
+            });
         }
 
-        const encryptedPassword = await hash(newPassword)
-
-        await User.findByIdAndUpdate(usuario._id, {password: encryptedPassword}, {new: true})
+        const encryptedPassword = await hash(newPassword);
+        await User.findByIdAndUpdate(usuario._id, { password: encryptedPassword });
 
         return res.status(200).json({
             success: true,
-            msg: "Updated password",
-        })
+            msg: "Password updated successfully"
+        });
 
     } catch (err) {
         return res.status(500).json({
@@ -130,7 +125,7 @@ export const updatePassword = async (req, res) => {
             error: err.message
         });
     }
-}
+};
 
 export const updateMe = async (req, res) => {
     try {
@@ -237,3 +232,67 @@ export const updateProfilePicture = async (req, res) => {
         });
     }
 }
+
+export const getUserLogged = async (req, res) => {
+    try {
+        const { usuario } = req;
+
+        const user = await User.findById(usuario._id).select('-password -__v');
+
+        if (!user || !user.status) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found or inactive'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            user
+        });
+
+    } catch (error) {
+        console.error('Error fetching logged user:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error while fetching user data',
+            error: error.message
+        });
+    }
+};
+
+export const updateRole = async (req, res) => {
+    try {
+        const { uid } = req.params;
+        const { role } = req.body;
+
+        const user = await User.findById(uid);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            });
+        }
+
+        user.role = role;
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: 'User role updated successfully',
+            user: {
+                id: user._id,
+                name: user.name,
+                role: user.role
+            }
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error updating user role',
+            error: err.message
+        });
+    }
+};

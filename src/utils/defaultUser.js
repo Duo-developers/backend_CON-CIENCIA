@@ -1,30 +1,34 @@
-// src/utils/defaultUser.js
-
 import User from '../user/user.model.js';
 import { hash } from 'argon2';
 
 export const createDefaultAdmin = async () => {
     try {
-        // Verifica si ya existe un usuario con este correo o nombre de usuario
+        const adminEmail = 'emiliojo@gmail.com';
+        const adminUsername = 'Elux';
+
         const existingUser = await User.findOne({
-            $or: [{ email: 'emilio@example.com' }, { username: 'emilio' }]
+            $or: [{ email: adminEmail }, { username: adminUsername }]
         });
 
         if (existingUser) {
-            console.log('El usuario administrador por defecto ya existe.');
             return;
         }
 
-        // Hashea la contraseña
-        const hashedPassword = await hash('admin123'); // ¡Recuerda cambiar esta contraseña!
+        const passwordFromEnv = process.env.DEFAULT_ADMIN_PASSWORD;
 
-        // Crea el nuevo usuario administrador
+        if (!passwordFromEnv) {
+            console.error('Error: La contraseña del administrador por defecto no está definida en el archivo .env');
+            return;
+        }
+
+        const hashedPassword = await hash(passwordFromEnv);
+
         const defaultAdmin = new User({
             name: 'Emilio',
-            username: 'emilio',
-            email: 'emilio@example.com',
+            username: adminUsername,
+            email: adminEmail,
             password: hashedPassword,
-            role: 'ADMIN_ROLE' // Asignamos el rol de administrador
+            role: 'ADMIN_ROLE'
         });
 
         await defaultAdmin.save();
