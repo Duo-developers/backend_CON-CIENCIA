@@ -1,0 +1,328 @@
+{
+	"info": {
+		"_postman_id": "d6947cbf-766c-45de-a251-03efa4d1637a",
+		"name": "CON-CIENCIA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37780367"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Emilio3",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "emilio_g3",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "emilio3@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Password123!",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/emili/Downloads/fotoperfil.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/conciencia/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"conciencia",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"emili0@example.com\",\r\n    \"password\": \"admin123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/conciencia/v1/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"conciencia",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Usuarios (ADMIN)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZjQ2ZDg0MDhkNDI2NzQ1OGNjZjAiLCJpYXQiOjE3NTA5ODgyMDQsImV4cCI6MTc1MDk5MTgwNH0.MAiGU7Pe9ohNQvpYneQkviptdRTd4OU-xqYMSymR1yk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3001/conciencia/v1/user/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"conciencia",
+						"v1",
+						"user",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar usuario por ID (ADMIN)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZjQ2ZDg0MDhkNDI2NzQ1OGNjZjAiLCJpYXQiOjE3NTA5ODgyMDQsImV4cCI6MTc1MDk5MTgwNH0.MAiGU7Pe9ohNQvpYneQkviptdRTd4OU-xqYMSymR1yk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3001/conciencia/v1/user/685df46d8408d4267458ccf0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"conciencia",
+						"v1",
+						"user",
+						"685df46d8408d4267458ccf0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un usuario por ID (ADMIN)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZjQ2ZDg0MDhkNDI2NzQ1OGNjZjAiLCJpYXQiOjE3NTA5ODg5NDcsImV4cCI6MTc1MDk5MjU0N30.f5Ocbd-cEae7H_xrAPGJNFNv7ca0c5CI7-W4DgJ-kmo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Carlos López\",\r\n    \"username\": \"clopez_dev\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/conciencia/v1/user/685dfb053a78bb4b5f99d570",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"conciencia",
+						"v1",
+						"user",
+						"685dfb053a78bb4b5f99d570"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar mi perfil",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZjQ2ZDg0MDhkNDI2NzQ1OGNjZjAiLCJpYXQiOjE3NTA5ODgyMDQsImV4cCI6MTc1MDk5MTgwNH0.MAiGU7Pe9ohNQvpYneQkviptdRTd4OU-xqYMSymR1yk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"emili0@example.com\",\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/conciencia/v1/user/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"conciencia",
+						"v1",
+						"user",
+						"me"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar mi propia contraseña",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZjQ2ZDg0MDhkNDI2NzQ1OGNjZjAiLCJpYXQiOjE3NTA5ODgyMDQsImV4cCI6MTc1MDk5MTgwNH0.MAiGU7Pe9ohNQvpYneQkviptdRTd4OU-xqYMSymR1yk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"currentPassword\": \"admin123\",\r\n    \"newPassword\": \"Admin123456.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/conciencia/v1/user/password/685df46d8408d4267458ccf0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"conciencia",
+						"v1",
+						"user",
+						"password",
+						"685df46d8408d4267458ccf0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Desactivar usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZjQ2ZDg0MDhkNDI2NzQ1OGNjZjAiLCJpYXQiOjE3NTA5ODgyMDQsImV4cCI6MTc1MDk5MTgwNH0.MAiGU7Pe9ohNQvpYneQkviptdRTd4OU-xqYMSymR1yk",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3001/conciencia/v1/user/685df46d8408d4267458ccf0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"conciencia",
+						"v1",
+						"user",
+						"685df46d8408d4267458ccf0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar mi foto de perfil",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZmRkZGVkNTQxYmM1NzgxMmY1ZmUiLCJpYXQiOjE3NTA5OTAzMDEsImV4cCI6MTc1MDk5MzkwMX0.AqI0qaIPXZxyIuZaNVeNowCnZ4IltvKr6kJ3rS5sMCw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/C:/Users/emili/Downloads/polonia.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3001/conciencia/v1/user/me/profile-picture",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"conciencia",
+						"v1",
+						"user",
+						"me",
+						"profile-picture"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
