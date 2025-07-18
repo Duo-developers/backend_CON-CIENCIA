@@ -25,13 +25,18 @@ export const registerValidator = [
 ]
 
 export const loginValidator = [
+    body().custom((value, { req }) => {
+        if (!req.body.email && !req.body.username) {
+            throw new Error("Email or username is required");
+        }
+        return true;
+    }),
     body("email").optional().isEmail().withMessage("Invalid email format"),
     body("username").optional().isString().withMessage("Username must be a string"),
     body("password", "Password is required").exists(),
     validateField,
     handleErrors
 ];
-
 
 export const getUsersValidator = [
     validateJWT,

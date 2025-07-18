@@ -57,7 +57,7 @@ export const getUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { uid } = req.params;
-        const { password, ...dataN } = req.body;
+        const { password, email, username, ...otherData } = req.body;
 
         let user = await User.findById(uid);
         if (!user || !user.status) {
@@ -67,14 +67,40 @@ export const updateUser = async (req, res) => {
             });
         }
 
-        user = await User.findByIdAndUpdate(uid, dataN, { new: true })
+        if (email && email !== user.email) {
+            const emailInUse = await User.findOne({ email, _id: { $ne: uid } });
+            if (emailInUse) {
+                return res.status(400).json({
+                    success: false,
+                    message: "This email is already in use by another user"
+                });
+            }
+        }
+        
+        if (username && username !== user.username) {
+            const usernameInUse = await User.findOne({ username, _id: { $ne: uid } });
+            if (usernameInUse) {
+                return res.status(400).json({
+                    success: false,
+                    message: "This username is already in use by another user"
+                });
+            }
+        }
+        
+        const updateData = { ...otherData };
+        if (email) updateData.email = email;
+        if (username) updateData.username = username;
+
+        user = await User.findByIdAndUpdate(uid, updateData, { new: true });
+        
         return res.status(200).json({
             success: true,
             message: 'User updated successfully',
             user: {
                 id: user._id,
                 name: user.name,
-                email: user.email
+                email: user.email,
+                username: user.username
             }
         });
 
@@ -86,7 +112,6 @@ export const updateUser = async (req, res) => {
         });
     }
 }
-
 export const updatePassword = async (req, res) => {
     try {
         const { usuario } = req;
@@ -130,7 +155,7 @@ export const updatePassword = async (req, res) => {
 export const updateMe = async (req, res) => {
     try {
         const { usuario } = req;
-        const { password, dpi, ...dataN } = req.body;
+        const { password, dpi, email, username, ...otherData } = req.body;
 
         const userFound = await User.findById(usuario._id);
         if (!userFound || !userFound.status) {
@@ -140,7 +165,31 @@ export const updateMe = async (req, res) => {
             });
         }
 
-        const updatedUser = await User.findByIdAndUpdate(usuario._id, dataN, { new: true });
+        if (email && email !== userFound.email) {
+            const emailInUse = await User.findOne({ email, _id: { $ne: usuario._id } });
+            if (emailInUse) {
+                return res.status(400).json({
+                    success: false,
+                    msg: "This email is already in use by another user"
+                });
+            }
+        }
+
+        if (username && username !== userFound.username) {
+            const usernameInUse = await User.findOne({ username, _id: { $ne: usuario._id } });
+            if (usernameInUse) {
+                return res.status(400).json({
+                    success: false,
+                    msg: "This username is already in use by another user"
+                });
+            }
+        }
+
+        const updateData = { ...otherData };
+        if (email) updateData.email = email;
+        if (username) updateData.username = username;
+
+        const updatedUser = await User.findByIdAndUpdate(usuario._id, updateData, { new: true });
 
         return res.status(200).json({
             success: true,
@@ -148,7 +197,8 @@ export const updateMe = async (req, res) => {
             user: {
                 id: updatedUser._id,
                 name: updatedUser.name,
-                email: updatedUser.email
+                email: updatedUser.email,
+                username: updatedUser.username
             }
         });
 

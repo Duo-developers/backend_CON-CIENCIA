@@ -7,25 +7,30 @@ import { imageUpload } from "../helpers/cloud-uploads.js";
  */
 export const cloudinaryUploadSingle = (folder = "default") => {
     return async (req, res, next) => {
+        const file = req.file; // Obtenemos el archivo subido por multer
+
         try {
-        const file = req.file;
+            if (!file || !file.path) {
+                req.img =
+                    "https://res.cloudinary.com/dwc4ynoj9/image/upload/v1750979813/defualtprofile_qiwkss.jpg";
+                return next();
+            }
 
-        if (!file || !file.path) {
-            req.img =
-            "https://res.cloudinary.com/dwc4ynoj9/image/upload/v1750979813/defualtprofile_qiwkss.jpg";
+            const { url } = await imageUpload(file, folder);
+
+            req.img = url;
             return next();
-        }
 
-        const { url } = await imageUpload(file, folder);
-
-        fs.unlink(file.path).catch((err) =>
-            console.error("Temp file delete error:", err)
-        );
-
-        req.img = url;
-        return next();
         } catch (err) {
-        return next(err); 
+            console.error("Cloudinary upload failed:", err);
+            return next(err);
+            
+        } finally {
+            if (file && file.path) {
+                fs.unlink(file.path).catch((unlinkErr) =>
+                    console.error("Error deleting temporary file:", unlinkErr)
+                );
+            }
         }
     };
 };

@@ -97,10 +97,19 @@ export const deleteComment = async (req, res) => {
             });
         }
 
-        const isOwner = comment.author.toString() === usuario._id.toString();
-        const isAdmin = usuario.role === 'ADMIN_ROLE';
+        const article = await Article.findById(comment.article);
+        if (!article) {
+            return res.status(404).json({
+                success: false,
+                message: 'Article not found'
+            });
+        }
 
-        if (!isOwner && !isAdmin) {
+        const isCommentOwner = comment.author.toString() === usuario._id.toString();
+        const isAdmin = usuario.role === 'ADMIN_ROLE';
+        const isArticleAuthor = article.author.toString() === usuario._id.toString();
+
+        if (!isCommentOwner && !isAdmin && !isArticleAuthor) {
             return res.status(403).json({
                 success: false,
                 message: 'You are not allowed to delete this comment'
@@ -118,11 +127,11 @@ export const deleteComment = async (req, res) => {
         console.error(error);
         return res.status(500).json({
             success: false,
-            message: 'Internal server error'
+            message: 'Internal server error',
+            error: error.message
         });
     }
 };
-
 export const getCommentsByArticle = async (req, res) => {
     try {
         const { id } = req.params;

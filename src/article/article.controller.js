@@ -99,38 +99,37 @@ export const updateArticle = async (req, res) => {
         const article = await Article.findById(id);
 
         if (!article) {
-        return res.status(404).json({
-            message: "Article not found",
-            success: false,
-        });
+            return res.status(404).json({
+                message: "Article not found",
+                success: false,
+            });
         }
 
-        if (article.author.toString() !== usuario._id.toString()) {
-        return res.status(403).json({
-            message: "You are not authorized to update this article",
-            success: false,
-        });
+        if (article.author.toString() !== usuario._id.toString() && usuario.role !== 'ADMIN_ROLE') {
+            return res.status(403).json({
+                message: "You are not authorized to update this article",
+                success: false,
+            });
         }
 
         const updateData = { ...restData };
         if (Array.isArray(videos)) {
-        updateData.videos = videos.map(getYoutubeEmbedUrl).filter(Boolean);
+            updateData.videos = videos.map(getYoutubeEmbedUrl).filter(Boolean);
         }
-
 
         const updatedArticle = await Article.findByIdAndUpdate(id, updateData, { new: true });
 
         return res.status(200).json({
-        message: "Article updated successfully",
-        success: true,
-        data: updatedArticle,
+            message: "Article updated successfully",
+            success: true,
+            data: updatedArticle,
         });
 
     } catch (error) {
         return res.status(500).json({
-        message: "Failed to update article",
-        success: false,
-        error: error.message,
+            message: "Failed to update article",
+            success: false,
+            error: error.message,
         });
     }
 };
@@ -143,31 +142,31 @@ export const deleteArticle = async (req, res) => {
         const article = await Article.findById(id);
 
         if (!article) {
-        return res.status(404).json({
-            message: "Article not found",
-            success: false
-        });
+            return res.status(404).json({
+                message: "Article not found",
+                success: false
+            });
         }
 
-        if (article.author.toString() !== usuario._id.toString()) {
-        return res.status(403).json({
-            message: "You are not authorized to delete this article",
-            success: false
-        });
+        if (article.author.toString() !== usuario._id.toString() && usuario.role !== 'ADMIN_ROLE') {
+            return res.status(403).json({
+                message: "You are not authorized to delete this article",
+                success: false
+            });
         }
 
         await Article.findByIdAndDelete(id);
 
         return res.status(200).json({
-        message: "Article deleted successfully",
-        success: true
+            message: "Article deleted successfully",
+            success: true
         });
 
     } catch (error) {
         return res.status(500).json({
-        message: "Failed to delete article",
-        success: false,
-        error: error.message
+            message: "Failed to delete article",
+            success: false,
+            error: error.message
         });
     }
 };
