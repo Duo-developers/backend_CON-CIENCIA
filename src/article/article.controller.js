@@ -135,7 +135,7 @@ export const updateArticle = async (req, res) => {
     }
 };
 
-export const deleteArticle = async (req, res) => {expor
+export const deleteArticle = async (req, res) => {
     try {
         const { id } = req.params;
         const { usuario } = req;

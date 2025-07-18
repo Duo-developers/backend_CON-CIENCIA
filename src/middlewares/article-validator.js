@@ -13,19 +13,21 @@ export const createArticleValidator = [
     hasRoles("TEACHER_ROLE", "ADMIN_ROLE"),
     body("title").notEmpty().withMessage("Title is required"),
     body("content").notEmpty().withMessage("Content is required"),
-    body("category").notEmpty().withMessage("Category es required"
+    body("category").notEmpty().withMessage("Category es required")
         .isIn(validCategories).withMessage(`Invalid category type. Valid types are: ${validCategories.join(", ")}`)
-    ),
+    ,
     validateField,
     deleteFileOnError,
     handleErrors
 ]
 
 export const getArticlesValidator = [
+    validateJWT,
     handleErrors
 ]
 
 export const getArticleByIdValidator = [
+    validateJWT,
     param("id").isMongoId().withMessage("The id is not valid"),
     param("id").custom(articleExists),
     validateField,
@@ -33,7 +35,16 @@ export const getArticleByIdValidator = [
 ]
 
 export const updateArticleValidator = [
+    validateJWT,
     param("id").isMongoId().withMessage("The id is not valid"),
     param("id").custom(articleExists)
 ]
 
+export const deleteArticleValidator = [
+    validateJWT,
+    hasRoles("TEACHER_ROLE", "ADMIN_ROLE"),
+    param("id").isMongoId().withMessage("The id is not valid"),
+    param("id").custom(articleExists),
+    validateField,
+    handleErrors
+]

@@ -28,3 +28,10 @@ export const articleExists = async (aid = " ") => {
         throw new Error("The Article does not exist")
     }
 }
+
+export const commentExists = async (cid = " ") => {
+    const existe = await Comment.findById(cid)
+    if (!existe) {
+        throw new Error("The Comment does not exist")
+    }
+}

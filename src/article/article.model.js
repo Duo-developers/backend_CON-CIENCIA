@@ -42,7 +42,7 @@ const articleSchema = new Schema({
 })
 
 articleSchema.methods.toJSON = function(){
-    const {__v, password, _id, ...art} = this.toObject();
+    const {__v, _id, ...art} = this.toObject();
     art.aid = _id;
     return art;
 }

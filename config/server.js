@@ -6,6 +6,8 @@ import cors from "cors";
 import apiLimiter from "../src/middlewares/rate-limit-validator.js";
 import authRoutes from "../src/auth/auth.routes.js";
 import userRoutes from "../src/user/user.routes.js";
+import articleRoutes from "../src/article/article.routes.js";
+import commentRoutes from "../src/comment/comment.routes.js";
 import { createDefaultAdmin } from "../src/utils/defaultUser.js";
 
 
@@ -26,6 +28,8 @@ const middlewares = (app) => {
 const routes = (app) => {
     app.use("/conciencia/v1/auth", authRoutes);
     app.use("/conciencia/v1/user", userRoutes);
+    app.use("/conciencia/v1/article", articleRoutes);
+    app.use("/conciencia/v1/comment", commentRoutes);
 }
 
 const connectDB = async () => {

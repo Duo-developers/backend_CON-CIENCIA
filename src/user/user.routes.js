@@ -22,4 +22,4 @@ router.delete('/:uid', deleteUserValidatorAdmin, deleteUser);
 
 
 export default router;
-user-validator.js
+
