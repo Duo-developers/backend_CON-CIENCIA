@@ -3,40 +3,33 @@ import User from '../user/user.model.js'
 import { getYoutubeEmbedUrl } from '../helpers/embed-conversor.js'
 
 export const createArticle = async (req, res) => {
-    try{
+    try {
         const data = req.body;
-        const {usuario} = req;
+        const { usuario } = req; 
 
-        const {videos, ...restData} = data;
+        const { videos, ...restData } = data;
 
-        const user = await User.findById(usuario._id);
+        const articleData = {
+            ...restData,
+            author: usuario._id,
+            videos: Array.isArray(videos) ? videos.map(getYoutubeEmbedUrl).filter(Boolean) : []
+        };
 
-        if (!user) {
-            return res.status(404).json({
-                message: "User not found",
-                success: false
-            });
-        }
-
-        const embedUrl = Array.isArray(videos)
-        ? videos.map(getYoutubeEmbedUrl).filter(Boolean)
-        :[]
-
-        const newArticle =  await Article.create({...restData, videos: embedUrl})  
+        const newArticle = await Article.create(articleData);
 
         return res.status(201).json({
             message: "Article created successfully",
             success: true,
             data: newArticle
-        })
-    }catch(err) {
+        });
+    } catch (err) {
         return res.status(500).json({
             message: "Article creation failed",
             success: false,
             error: err.message
-        })
-    }   
-}
+        });
+    }
+};
 
 export const getArticles = async (req, res) => {
     try {
