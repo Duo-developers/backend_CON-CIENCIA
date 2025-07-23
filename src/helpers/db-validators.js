@@ -1,6 +1,7 @@
 import User from "../user/user.model.js";
 import Article from "../article/article.model.js"
 import Comment from "../comment/comment.model.js"; 
+import Event from "../models/event.model.js";
 
 export const emailExists = async (email = "") => {
     const existe = await User.findOne({email})
@@ -36,3 +37,10 @@ export const commentExists = async (cid = " ") => {
         throw new Error("The Comment does not exist")
     }
 }
+
+export const eventExists = async (id = "") => {
+    const existe = await Event.findById(id);
+    if (!existe || !existe.status) {
+        throw new Error("Event not found or inactive");
+    }
+};

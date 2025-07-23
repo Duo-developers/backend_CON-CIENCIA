@@ -15,13 +15,13 @@ const articleSchema = new Schema({
         required: true,
         trim: true
     },
-    category:[{
+    category:{
         type: String,
         enum: [
             'Biology', 'Chemistry', 'History', 'Medicine', 'Astronomy'
         ],
         required: true
-    }],
+    },
     images:[{
         type: String
     }],

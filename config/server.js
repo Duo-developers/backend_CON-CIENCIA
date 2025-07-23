@@ -8,6 +8,7 @@ import authRoutes from "../src/auth/auth.routes.js";
 import userRoutes from "../src/user/user.routes.js";
 import articleRoutes from "../src/article/article.routes.js";
 import commentRoutes from "../src/comment/comment.routes.js";
+import eventRoutes from "../src/event/event.routes.js";
 import { createDefaultAdmin } from "../src/utils/defaultUser.js";
 
 
@@ -30,6 +31,7 @@ const routes = (app) => {
     app.use("/conciencia/v1/user", userRoutes);
     app.use("/conciencia/v1/article", articleRoutes);
     app.use("/conciencia/v1/comment", commentRoutes);
+    app.use("/conciencia/v1/event", eventRoutes);
 }
 
 const connectDB = async () => {
