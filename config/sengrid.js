@@ -1,0 +1,19 @@
+import sgMail from '@sendgrid/mail';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+export const sendReminderEmail = async ({ to, subject, text }) => {
+    const msg = {
+        to,
+        from: process.env.SENDGRID_SENDER,
+        subject,
+        text
+    };
+
+    try {
+        await sgMail.send(msg);
+    } catch (error) {
+        console.error("SendGrid error:", error.response?.body || error.message);
+        throw new Error("Failed to send reminder email");
+    }
+};

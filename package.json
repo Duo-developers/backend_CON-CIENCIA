@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "CON-CIENCIA es una plataforma web que integra un Blog Científico Interactivo y un Organizador de Eventos Científicos. Permite a los usuarios explorar artículos científicos organizados por categorías, comentar y participar en discusiones, así como descubrir y gestionar eventos académicos.",
   "main": "index.js",
-"scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "start": "node -r dotenv/config index.js",
-  "dev": "node --watch -r dotenv/config index.js" 
-},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node -r dotenv/config index.js",
+    "dev": "node --watch -r dotenv/config index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Duo-developers/backend_CON-CIENCIA.git"
@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/Duo-developers/backend_CON-CIENCIA#readme",
   "dependencies": {
+    "@sendgrid/mail": "^8.1.5",
     "argon2": "^0.43.0",
+    "bull": "^4.16.5",
     "cloudinary": "^2.7.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
@@ -29,6 +31,7 @@
     "express-rate-limit": "^7.5.1",
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
+    "ioredis": "^5.6.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.0",
     "morgan": "^1.10.0",
