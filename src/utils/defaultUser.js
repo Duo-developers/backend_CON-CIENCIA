@@ -3,7 +3,7 @@ import { hash } from 'argon2';
 
 export const createDefaultAdmin = async () => {
     try {
-        const adminEmail = 'emiliojo@gmail.com';
+        const adminEmail = 'emiliojo.lux@gmail.com';
         const adminUsername = 'Elux';
 
         const existingUser = await User.findOne({

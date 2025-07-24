@@ -39,6 +39,12 @@ const userSchema = new Schema({
         enum: ['USER_ROLE', 'TEACHER_ROLE', 'ADMIN_ROLE'],
         default: 'USER_ROLE'
     },
+    passwordResetToken: {
+        type: String
+    },
+    passwordResetExpires: {
+        type: Date
+    }
 }, {
     timestamps: true,
     versionKey: false

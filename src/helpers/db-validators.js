@@ -1,7 +1,7 @@
 import User from "../user/user.model.js";
 import Article from "../article/article.model.js"
 import Comment from "../comment/comment.model.js"; 
-import Event from "../models/event.model.js";
+import Event from "../event/event.model.js";
 
 export const emailExists = async (email = "") => {
     const existe = await User.findOne({email})
