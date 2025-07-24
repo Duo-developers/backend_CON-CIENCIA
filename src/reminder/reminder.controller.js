@@ -1,38 +1,47 @@
-import Reminder from "../models/reminder.model.js";
-import Event from "../models/event.model.js";
-import User from "../models/user.model.js";
-import { sendReminderEmail } from "../../config/sengrid.js";
+import Reminder from './reminder.model.js';
+import Event from '../event/event.model.js';
+import User from '../user/user.model.js';
+import { sendReminderEmail } from '../helpers/email-helpers.js'; 
 
 export const createReminder = async (req, res) => {
     try {
-        const reminder = new Reminder(req.body);
-        await reminder.save();
+        const { id: eventId } = req.params;
+        const { uid: userId } = req.user; 
 
-        const user = await User.findById(reminder.user);
-        const event = await Event.findById(reminder.event);
+        const [event, user] = await Promise.all([
+            Event.findById(eventId),
+            User.findById(userId)
+        ]);
 
-        if (!user || !event) {
-        return res.status(404).json({ message: "User or event not found" });
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
         }
 
-        if (reminder.notificationMethod === "email") {
-        await sendReminderEmail({
-            to: user.email,
-            subject: `Recordatorio: ${event.name}`,
-            text: `Hola ${user.name}, recuerda que el evento "${event.name}" se llevará a cabo el ${new Date(event.date).toLocaleString()}.`
+        const existingReminder = await Reminder.findOne({ user: userId, event: eventId });
+        if (existingReminder) {
+            return res.status(409).json({ message: 'You have already set a reminder for this event' });
+        }
+
+        const reminder = new Reminder({
+            user: userId,
+            event: eventId,
+            reminderDate: new Date()
         });
-        }
 
-        res.status(201).json({
-        message: "Reminder created and email sent",
-        reminder
+        await reminder.save();
+        await sendReminderEmail(user.email, event);
+
+        res.status(201).json({ 
+            message: 'Reminder created successfully and confirmation email sent.', 
+            reminder 
         });
 
     } catch (error) {
-        res.status(500).json({
-        message: "Failed to create reminder",
-        error: error.message
-        });
+        console.error('Error creating reminder:', error);
+        res.status(500).json({ message: 'An error occurred on the server' });
     }
 };
 

@@ -88,10 +88,10 @@ export const updateEvent = async (req, res) => {
         });
 
     } catch (error) {
+        console.error(error);
         return res.status(500).json({
-            message: "Failed to update event",
-            success: false,
-            error: error.message,
+            message: 'Error updating event',
+            error: error.message
         });
     }
 };

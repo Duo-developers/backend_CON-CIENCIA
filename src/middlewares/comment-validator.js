@@ -16,17 +16,22 @@ export const createCommentValidator = [
 
 export const editCommentValidator = [
     validateJWT,
-    param("id").isMongoId().withMessage("Comment id is not valid"),
-    param("id").custom(commentExists),
+    param("articleId").isMongoId().withMessage("Article ID is not valid"),
+    param("articleId").custom(articleExists),
+    param("commentId").isMongoId().withMessage("Comment ID is not valid"),
+    param("commentId").custom(commentExists),
     body("message").notEmpty().withMessage("Message is required"),
+    
     validateField,
     handleErrors
 ];
 
 export const deleteCommentValidator = [
     validateJWT,
-    param("id").isMongoId().withMessage("Comment id is not valid"),
-    param("id").custom(commentExists),
+    param("articleId").isMongoId().withMessage("Article ID is not valid"),
+    param("articleId").custom(articleExists),
+    param("commentId").isMongoId().withMessage("Comment ID is not valid"),
+    param("commentId").custom(commentExists),
     validateField,
     handleErrors
 ];
