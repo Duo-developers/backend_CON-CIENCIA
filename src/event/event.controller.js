@@ -21,22 +21,30 @@ export const createEvent = async (req, res) => {
     }
 };
 
-
 export const getAllEvents = async (req, res) => {
     try {
         const { limit = 10, from = 0 } = req.query;
-        const events = await Event.find({ status: true })
-            .sort({ createdAt: -1 })
-            .skip(from)
-            .limit(limit);
+
+        const [events, total] = await Promise.all([
+            Event.find({ status: true })
+                .sort({ createdAt: -1 })
+                .skip(Number(from))     
+                .limit(Number(limit)),
+            
+            Event.countDocuments({ status: true }) 
+        ]);
 
         return res.status(200).json({
             message: "Events fetched successfully",
-            events: events
+            total,
+            events
         });
 
     } catch (error) {
-        res.status(500).json({ message: "Error fetching events", error: error.message });
+        res.status(500).json({ 
+            message: "Error fetching events", 
+            error: error.message 
+        });
     }
 };
 

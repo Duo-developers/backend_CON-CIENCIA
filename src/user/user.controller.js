@@ -1,6 +1,7 @@
 import User from './user.model.js';
 import { hash, verify } from 'argon2';
 
+
 export const getUsers = async (req, res) => {
     try {
         const { limit = 10, from = 0 } = req.query;
@@ -322,6 +323,18 @@ export const updateRole = async (req, res) => {
             return res.status(404).json({
                 success: false,
                 message: 'User not found'
+            });
+        }
+
+        if (user.role === role) {
+            return res.status(200).json({
+                success: true,
+                message: 'User already has this role. No update was necessary.',
+                user: {
+                    id: user._id,
+                    name: user.name,
+                    role: user.role
+                }
             });
         }
 

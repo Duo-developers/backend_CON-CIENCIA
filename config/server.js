@@ -12,6 +12,7 @@ import eventRoutes from "../src/event/event.routes.js";
 import reminderRoutes from "../src/reminder/reminder.routes.js"; 
 import { createDefaultUsers  } from "../src/utils/defaultUser.js";
 import { createDefaultEvents, createDefaultArticlesAndComments } from "../src/utils/defaultContent.js";
+import { swaggerDocs } from './swagger.js';
 
 
 const middlewares = (app) => {
@@ -55,6 +56,7 @@ export const initServer = () => {
         middlewares(app);
         connectDB();
         routes(app);
+        swaggerDocs(app);
         const port = process.env.PORT;
         app.listen(port, () => {
         console.log(`Server running on port ${port}`);
