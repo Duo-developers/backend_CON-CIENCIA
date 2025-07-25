@@ -9,7 +9,9 @@ import userRoutes from "../src/user/user.routes.js";
 import articleRoutes from "../src/article/article.routes.js";
 import commentRoutes from "../src/comment/comment.routes.js";
 import eventRoutes from "../src/event/event.routes.js";
-import { createDefaultAdmin } from "../src/utils/defaultUser.js";
+import reminderRoutes from "../src/reminder/reminder.routes.js"; 
+import { createDefaultUsers  } from "../src/utils/defaultUser.js";
+import { createDefaultEvents, createDefaultArticlesAndComments } from "../src/utils/defaultContent.js";
 
 
 const middlewares = (app) => {
@@ -32,12 +34,15 @@ const routes = (app) => {
     app.use("/conciencia/v1/article", articleRoutes);
     app.use("/conciencia/v1/comment", commentRoutes);
     app.use("/conciencia/v1/event", eventRoutes);
+    app.use("/conciencia/v1/reminder", reminderRoutes);
 }
 
 const connectDB = async () => {
     try {
         await dbConnection();
-        await createDefaultAdmin(); 
+        await createDefaultUsers();
+        await createDefaultEvents();
+        await createDefaultArticlesAndComments();
     } catch (error) {
         console.error("Database connection failed:", error);
         process.exit(1); 

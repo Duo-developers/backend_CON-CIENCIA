@@ -64,7 +64,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"testuser@example.com\",\r\n  \"password\": \"Test@123\"\r\n}",
+							"raw": "{\r\n  \"email\": \"emiliojo.lux@gmail.com\",\r\n  \"password\": \"NuevaContraseña123!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -319,6 +319,69 @@
 								"v1",
 								"user",
 								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"emiliojo.lux@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/auth/forgot-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"NuevaContraseña123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/auth/reset-password/c6469a18997daa10533dc55600544b3eca07b199bb180dee9ed39e47532258bb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"auth",
+								"reset-password",
+								"c6469a18997daa10533dc55600544b3eca07b199bb180dee9ed39e47532258bb"
 							]
 						}
 					},
@@ -626,6 +689,310 @@
 								"v1",
 								"comment",
 								"687a064c77a68375a13ed4c8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTM0MDg2NzgsImV4cCI6MTc1MzQxMjI3OH0.wpG1RRM_zHnH_-ZmWnAI2BOuECUeBuUvgSP3gPIRqCI",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Conferencia de Astronomía\",\r\n  \"date\": \"2025-08-15T18:00:00.000Z\",\r\n  \"location\": \"Auditorio Central\",\r\n  \"description\": \"Charla sobre los últimos descubrimientos en astronomía.\",\r\n  \"category\": \"Astronomy\",\r\n  \"externalLinks\": [\r\n    {\r\n      \"title\": \"Sitio oficial\",\r\n      \"url\": \"https://astronomia.org\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/event/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"event",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Events",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTMzOTkwMDQsImV4cCI6MTc1MzQwMjYwNH0.b14GsXax4zOLsU16RWMIgJ8kkm07Q0uzSm75g8aJM4A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/event/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"event",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get event by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTMzOTkwMDQsImV4cCI6MTc1MzQwMjYwNH0.b14GsXax4zOLsU16RWMIgJ8kkm07Q0uzSm75g8aJM4A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/event/6882bf747ce4e42130178b78",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"event",
+								"6882bf747ce4e42130178b78"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTMzOTkwMDQsImV4cCI6MTc1MzQwMjYwNH0.b14GsXax4zOLsU16RWMIgJ8kkm07Q0uzSm75g8aJM4A",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Conferencia de astrofísica\",\r\n  \"date\": \"2025-09-01T18:00:00.000Z\",\r\n  \"location\": \"Auditorio nacional civil\",\r\n  \"description\": \"Descripción actualizada\",\r\n  \"category\": \"Biology\",\r\n  \"externalLinks\": [\r\n    {\r\n      \"title\": \"Nuevo enlace\",\r\n      \"url\": \"https://nuevoenlace.com\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/event/6882bf747ce4e42130178b78",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"event",
+								"6882bf747ce4e42130178b78"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTM0MDg2NzgsImV4cCI6MTc1MzQxMjI3OH0.wpG1RRM_zHnH_-ZmWnAI2BOuECUeBuUvgSP3gPIRqCI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/event/6882e4b81e56e4908189ac3a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"event",
+								"6882e4b81e56e4908189ac3a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reminders",
+			"item": [
+				{
+					"name": "Create remember",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTM0MDg2NzgsImV4cCI6MTc1MzQxMjI3OH0.wpG1RRM_zHnH_-ZmWnAI2BOuECUeBuUvgSP3gPIRqCI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reminderTime\": \"2025-10-05T10:00:00.000Z\",\r\n    \"notificationMethod\": \"email\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/reminder/6882e73cc8767f3b04056724",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"reminder",
+								"6882e73cc8767f3b04056724"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all the remember",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTM0MDg2NzgsImV4cCI6MTc1MzQxMjI3OH0.wpG1RRM_zHnH_-ZmWnAI2BOuECUeBuUvgSP3gPIRqCI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/reminder/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"reminder",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTM0MDg2NzgsImV4cCI6MTc1MzQxMjI3OH0.wpG1RRM_zHnH_-ZmWnAI2BOuECUeBuUvgSP3gPIRqCI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/reminder/6882e7ed505c16fd0f454f35",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"reminder",
+								"6882e7ed505c16fd0f454f35"
 							]
 						}
 					},

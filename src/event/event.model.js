@@ -27,6 +27,11 @@ const eventSchema = new Schema({
         ],
         required: true
     },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    },
     externalLinks: [{
         title: {
             type: String,

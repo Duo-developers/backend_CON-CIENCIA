@@ -3,9 +3,9 @@ import { validateField } from './validate-fileds.js';
 
 
 export const createReminderValidator = [
-    body('event', 'Event is required').isMongoId(),
-    body('notificationMethod', 'Notification method is required').notEmpty(),
-    body('reminderTime', 'Reminder time must be a valid date').isISO8601(),
+    param('id', 'El ID del evento en la URL no es válido').isMongoId(),
+    body('notificationMethod', 'El método de notificación es requerido').notEmpty(),
+    body('reminderTime', 'La fecha del recordatorio debe ser una fecha válida').isISO8601(),
     validateField,
 ];
 

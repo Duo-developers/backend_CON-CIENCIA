@@ -2,14 +2,17 @@ import Event from "./event.model.js";
 
 export const createEvent = async (req, res) => {
     try {
-        const newEvent = new Event(req.body);
+        const eventData = req.body;
+        const { usuario } = req;
+        eventData.user = usuario._id; 
+
+        const newEvent = new Event(eventData);
         await newEvent.save();
 
         return res.status(201).json({ 
             message: "Event created",
             event: newEvent 
         });
-
     } catch (error) {
         return res.status(500).json({
             message: "Error creating event",
@@ -17,6 +20,7 @@ export const createEvent = async (req, res) => {
         });
     }
 };
+
 
 export const getAllEvents = async (req, res) => {
     try {
@@ -60,17 +64,18 @@ export const getEventById = async (req, res) => {
 export const updateEvent = async (req, res) => {
     try {
         const { id } = req.params;
+        const { usuario } = req; 
         const { externalLinks, ...restData } = req.body;
 
         const event = await Event.findById(id);
 
         if (!event) {
-            return res.status(404).json({
-                message: "Event not found",
-                success: false,
-            });
+            return res.status(404).json({ message: "Event not found" });
         }
 
+        if (event.user.toString() !== usuario._id.toString()) {
+            return res.status(403).json({ message: "Forbidden: You do not own this event" });
+        }
 
         const updateData = { ...restData };
         if (Array.isArray(externalLinks)) {
@@ -83,10 +88,8 @@ export const updateEvent = async (req, res) => {
 
         return res.status(200).json({
             message: "Event updated successfully",
-            success: true,
             data: updatedEvent,
         });
-
     } catch (error) {
         console.error(error);
         return res.status(500).json({
@@ -104,32 +107,25 @@ export const deleteEvent = async (req, res) => {
         const event = await Event.findById(id);
 
         if (!event) {
-            return res.status(404).json({
-                message: "Event not found",
-                success: false
-            });
+            return res.status(404).json({ message: "Event not found" });
         }
 
-        if (usuario.role !== 'ADMIN_ROLE') {
-            return res.status(403).json({
-                message: "You are not authorized to delete this event",
-                success: false
-            });
+        const isOwner = event.user.toString() === usuario._id.toString();
+        const isAdmin = usuario.role === 'ADMIN_ROLE';
+
+        if (!isOwner && !isAdmin) {
+            return res.status(403).json({ message: "Forbidden: You are not authorized to delete this event" });
         }
 
-
-        event.status = false;
+        event.status = false; 
         await event.save();
 
         return res.status(200).json({
-            message: "Event deleted successfully (soft delete)",
-            success: true
+            message: "Event soft-deleted successfully",
         });
-
     } catch (error) {
         return res.status(500).json({
             message: "Failed to delete event",
-            success: false,
             error: error.message
         });
     }
