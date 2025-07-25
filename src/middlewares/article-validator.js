@@ -37,12 +37,13 @@ export const getArticleByIdValidator = [
 export const updateArticleValidator = [
     validateJWT,
     param("id").isMongoId().withMessage("The id is not valid"),
-    param("id").custom(articleExists)
+    param("id").custom(articleExists),
+    validateField,
+    handleErrors
 ]
 
 export const deleteArticleValidator = [
     validateJWT,
-    hasRoles("TEACHER_ROLE", "ADMIN_ROLE"),
     param("id").isMongoId().withMessage("The id is not valid"),
     param("id").custom(articleExists),
     validateField,

@@ -18,9 +18,20 @@ const articleSchema = new Schema({
     category:{
         type: String,
         enum: [
-            'Biology', 'Chemistry', 'History', 'Medicine', 'Astronomy'
+            'Biology',
+            'Chemistry',
+            'History',
+            'Medicine',
+            'Astronomy',
+            'Physics',
+            'Mathematics',
+            'Technology',
+            'Geology and Earth Sciences',
+            'Social Sciences',
+            'Engineering',
+            'Other'
         ],
-        required: true
+        required: [true, 'Category is required']
     },
     images:[{
         type: String
