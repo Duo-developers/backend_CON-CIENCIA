@@ -6,7 +6,20 @@ import { hasRoles } from "./validate-roles.js";
 import { deleteFileOnError } from "./delete-file-on-error.js";
 import { articleExists } from "../helpers/db-validators.js";
 
-export const validCategories = ['Biology', 'Chemistry', 'History', 'Medicine', 'Astronomy']
+export const validCategories = [
+  'Biology',
+  'Chemistry',
+  'History',
+  'Medicine',
+  'Astronomy',
+  'Physics',
+  'Mathematics',
+  'Technology',
+  'Geology and Earth Sciences',
+  'Social Sciences',
+  'Engineering',
+  'Other'
+]
 
 export const createArticleValidator = [
     validateJWT,
