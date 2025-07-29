@@ -1102,7 +1102,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM0NDg0ODYsImV4cCI6MTc1MzQ1MjA4Nn0.G5rPrXUJQFe50QVaWd9-gQmjXvUYZ-iLsl_IOAKAAIQ",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjU0MjYsImV4cCI6MTc1MzgyOTAyNn0.eud5NnklWvVRTJ7mAeClpKH9QiWFr7WA2QAVnanNif0",
 								"type": "text"
 							}
 						],
@@ -1116,7 +1116,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/conciencia/v1/reminder/688373db930f68835ee4b446",
+							"raw": "http://localhost:3001/conciencia/v1/reminder/688373db930f68835ee4b43d",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1126,7 +1126,7 @@
 								"conciencia",
 								"v1",
 								"reminder",
-								"688373db930f68835ee4b446"
+								"688373db930f68835ee4b43d"
 							]
 						}
 					},
@@ -1139,7 +1139,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTM0MDg2NzgsImV4cCI6MTc1MzQxMjI3OH0.wpG1RRM_zHnH_-ZmWnAI2BOuECUeBuUvgSP3gPIRqCI",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjU0MjYsImV4cCI6MTc1MzgyOTAyNn0.eud5NnklWvVRTJ7mAeClpKH9QiWFr7WA2QAVnanNif0",
 								"type": "text"
 							}
 						],
@@ -1161,18 +1161,18 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "Get remember by DI",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTM0MDg2NzgsImV4cCI6MTc1MzQxMjI3OH0.wpG1RRM_zHnH_-ZmWnAI2BOuECUeBuUvgSP3gPIRqCI",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjU0MjYsImV4cCI6MTc1MzgyOTAyNn0.eud5NnklWvVRTJ7mAeClpKH9QiWFr7WA2QAVnanNif0",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3001/conciencia/v1/reminder/6882e7ed505c16fd0f454f35",
+							"raw": "http://localhost:3001/conciencia/v1/reminder/688940eabda2ed188c66164e",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1182,7 +1182,35 @@
 								"conciencia",
 								"v1",
 								"reminder",
-								"6882e7ed505c16fd0f454f35"
+								"688940eabda2ed188c66164e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Remember",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjU0MjYsImV4cCI6MTc1MzgyOTAyNn0.eud5NnklWvVRTJ7mAeClpKH9QiWFr7WA2QAVnanNif0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/reminder/688940eabda2ed188c66164e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"reminder",
+								"688940eabda2ed188c66164e"
 							]
 						}
 					},

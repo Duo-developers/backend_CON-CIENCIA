@@ -17,3 +17,8 @@ export const getReminderByIdValidator = [
     param('id', 'Invalid reminder ID').isMongoId(),
     validateField,
 ];
+
+export const deleteReminderValidator = [
+    param('id', 'El ID del recordatorio no es válido').isMongoId(),
+    validateField,
+];
