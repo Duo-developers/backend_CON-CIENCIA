@@ -55,12 +55,11 @@ export const createReminder = async (req = request, res = response) => {
     }
 };
 
-// GET ALL MY REMINDERS (Corregido y Limpio)
 export const getMyReminders = async (req = request, res = response) => {
     try {
         const { usuario } = req;
-        const reminders = await Reminder.find({ user: usuario._id, status: true }) // Solo activos
-            .populate('event', 'name date') // Corregido para usar 'name'
+        const reminders = await Reminder.find({ user: usuario._id, status: true }) 
+            .populate('event', 'name date')
             .sort({ reminderTime: 1 });
 
         return res.status(200).json({
@@ -75,14 +74,13 @@ export const getMyReminders = async (req = request, res = response) => {
     }
 };
 
-// GET REMINDER BY ID (Corregido y Limpio)
 export const getReminderById = async (req = request, res = response) => {
     try {
         const { usuario } = req;
         const { id } = req.params;
 
         const reminder = await Reminder.findOne({ _id: id, user: usuario._id, status: true }) // Solo activos
-            .populate('event', 'name date'); // Corregido para usar 'name'
+            .populate('event', 'name date'); 
 
         if (!reminder) {
             return res.status(404).json({
@@ -97,6 +95,38 @@ export const getReminderById = async (req = request, res = response) => {
     } catch (error) {
         return res.status(500).json({
             message: 'Error retrieving reminder',
+            error: error.message,
+        });
+    }
+};
+
+export const deleteReminder = async (req = request, res = response) => {
+    try {
+        const { usuario } = req;
+        const { id } = req.params;
+
+        const reminder = await Reminder.findOne({ 
+            _id: id, 
+            user: usuario._id, 
+            status: true 
+        });
+
+        if (!reminder) {
+            return res.status(404).json({
+                message: 'Reminder not found or does not belong to you',
+            });
+        }
+
+        await Reminder.findByIdAndDelete(id);
+
+        return res.status(200).json({
+            message: 'Reminder deleted successfully',
+        });
+
+    } catch (error) {
+        console.error('Error deleting reminder:', error);
+        return res.status(500).json({
+            message: 'Error deleting reminder',
             error: error.message,
         });
     }

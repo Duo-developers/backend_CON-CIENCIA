@@ -3,12 +3,14 @@ import { validateJWT } from "../middlewares/validate-jwt.js";
 import {
     createReminderValidator,
     getMyRemindersValidator,
-    getReminderByIdValidator
+    getReminderByIdValidator,
+    deleteReminderValidator  
 } from "../middlewares/reminder-validator.js";
 import {
     createReminder,
     getMyReminders,
     getReminderById,
+    deleteReminder  
 } from "./reminder.controller.js";
 
 /**
@@ -188,5 +190,40 @@ router.get("/:id", [validateJWT, ...getReminderByIdValidator], getReminderById);
  *         description: Error interno del servidor
  */
 router.post("/:id", [validateJWT, ...createReminderValidator], createReminder);
+
+/**
+ * @swagger
+ * /conciencia/v1/reminder/{id}:
+ *   delete:
+ *     summary: Eliminar un recordatorio
+ *     tags: [Reminders]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del recordatorio a eliminar
+ *     responses:
+ *       200:
+ *         description: Recordatorio eliminado exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Reminder deleted successfully"
+ *       401:
+ *         description: No autorizado
+ *       404:
+ *         description: Recordatorio no encontrado
+ *       500:
+ *         description: Error del servidor
+ */
+router.delete("/:id", [validateJWT, ...deleteReminderValidator], deleteReminder);
 
 export default router;

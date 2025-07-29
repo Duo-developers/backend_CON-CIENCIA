@@ -1,8 +1,33 @@
 import { Router } from 'express';
-import { getUsersValidator, getUserByIdValidator, updateUserValidator, deleteUserValidatorAdmin, updateProfilePictureValidator, updatePasswordValidator, updateRoleValidator, getUserLoggedValidator } from '../middlewares/user-validator.js';
-import { getUsers, getUserById, updateUser, updatePassword, updateMe, deleteUser, updateProfilePicture, updateRole, getUserLogged } from './user.controller.js';
+import {
+    getUsersValidator,
+    getUserByIdValidator,
+    updateUserValidator,
+    deleteUserValidatorAdmin,
+    updateProfilePictureValidator,
+    updatePasswordValidator,
+    updateRoleValidator,
+    getUserLoggedValidator,
+    favoriteEventValidator
+} from '../middlewares/user-validator.js';
+import {
+    getUsers,
+    getUserById,
+    updateUser,
+    updatePassword,
+    updateMe,
+    deleteUser,
+    updateProfilePicture,
+    updateRole,
+    getUserLogged,
+    addFavoriteEvent,
+    removeFavoriteEvent,
+    getFavoriteEvents
+} from './user.controller.js';
 import { uploadProfileImage } from '../middlewares/multer-uploads.js';
 import { cloudinaryUploadSingle } from '../middlewares/image-uploads.js';
+import { validateJWT } from '../middlewares/validate-jwt.js'; 
+
 
 /**
  * @swagger
@@ -298,6 +323,117 @@ router.get('/', getUsersValidator, getUsers);
 
 /**
  * @swagger
+ * /conciencia/v1/user/favorites:
+ *   get:
+ *     summary: Obtener los eventos favoritos del usuario
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Lista de eventos favoritos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 favorites:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Event'
+ *       401:
+ *         description: No autorizado
+ *       404:
+ *         description: Usuario no encontrado
+ *       500:
+ *         description: Error del servidor
+ */
+router.get('/favorites', validateJWT, getFavoriteEvents);
+
+/**
+ * @swagger
+ * /conciencia/v1/user/favorites/{eventId}:
+ *   post:
+ *     summary: Añadir un evento a favoritos
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: eventId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del evento a añadir a favoritos
+ *     responses:
+ *       200:
+ *         description: Evento añadido a favoritos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Event added to favorites successfully"
+ *       400:
+ *         description: El evento ya está en favoritos
+ *       401:
+ *         description: No autorizado
+ *       404:
+ *         description: Evento no encontrado
+ *       500:
+ *         description: Error del servidor
+ */
+router.post('/favorites/:eventId', favoriteEventValidator, addFavoriteEvent);
+
+/**
+ * @swagger
+ * /conciencia/v1/user/favorites/{eventId}:
+ *   delete:
+ *     summary: Eliminar un evento de favoritos
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: eventId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del evento a eliminar de favoritos
+ *     responses:
+ *       200:
+ *         description: Evento eliminado de favoritos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Event removed from favorites successfully"
+ *       401:
+ *         description: No autorizado
+ *       404:
+ *         description: Evento no encontrado
+ *       500:
+ *         description: Error del servidor
+ */
+router.delete('/favorites/:eventId', favoriteEventValidator, removeFavoriteEvent);
+
+
+/**
+ * @swagger
  * /conciencia/v1/user/{uid}:
  *   get:
  *     summary: Obtener usuario por ID
@@ -491,5 +627,5 @@ router.patch('/:uid/role', updateRoleValidator, updateRole);
  */
 router.delete('/:uid', deleteUserValidatorAdmin, deleteUser);
 
-export default router;
 
+export default router;
