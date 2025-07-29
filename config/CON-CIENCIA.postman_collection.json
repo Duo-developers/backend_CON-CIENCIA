@@ -40,7 +40,7 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/emili/Downloads/images.png"
+									"src": "/C:/Users/emili/Downloads/earth-11015_640.jpg"
 								}
 							]
 						},
@@ -58,13 +58,13 @@
 					"response": []
 				},
 				{
-					"name": "Login with email",
+					"name": "Login with email (ADMIN)",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"emiliojo.lux@gmail.com\",\r\n  \"password\": \"NuevaContraseña123!\"\r\n}",
+							"raw": "{\r\n  \"email\": \"emiliojo.lux@gmail.com\",\r\n  \"password\": \"Emilio1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -85,13 +85,13 @@
 					"response": []
 				},
 				{
-					"name": "Login with username",
+					"name": "Login with username (TEACHER)",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"testuser\",\r\n  \"password\": \"Test@123\"\r\n}",
+							"raw": "{\r\n  \"username\": \"ProfeCiencia\",\r\n  \"password\": \"TeacherConCiencia#\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -106,6 +106,201 @@
 							"path": [
 								"auth",
 								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login (USER)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"user@conciencia.com\",\r\n  \"password\": \"UserCiencia$2025\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update my profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDU1YmViZDZmYzc3MjBmMjc2OWIiLCJpYXQiOjE3NTM0MTcwNTEsImV4cCI6MTc1MzQyMDY1MX0.olpTWnoXTc67kjSEELC_Vmk4Kx2BytmMXksPFJDOPnk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"emili0@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/me",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update my own password",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDU1YmViZDZmYzc3MjBmMjc2OWIiLCJpYXQiOjE3NTM0MTcwNTEsImV4cCI6MTc1MzQyMDY1MX0.olpTWnoXTc67kjSEELC_Vmk4Kx2BytmMXksPFJDOPnk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"Test@123\",\r\n    \"newPassword\": \"Test@123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/password",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"NuevaContraseña123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/auth/reset-password/c6469a18997daa10533dc55600544b3eca07b199bb180dee9ed39e47532258bb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"auth",
+								"reset-password",
+								"c6469a18997daa10533dc55600544b3eca07b199bb180dee9ed39e47532258bb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"emiliojo.lux@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/auth/forgot-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update my profile photo",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNmMzkzMGY2ODgzNWVlNGI0NjAiLCJpYXQiOjE3NTM0NDUzNjMsImV4cCI6MTc1MzQ0ODk2M30.L4ZqIrqOlaqUg0VXcZGCpsb2g2IYuKwsaczyAOYuHn4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/emili/Downloads/Niveles inglés.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/user/me/profile-picture",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"user",
+								"me",
+								"profile-picture"
 							]
 						}
 					},
@@ -118,7 +313,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjA0NmJiZTNkMmYyZDk3YjY2MmYiLCJpYXQiOjE3NTI4MjIwMjAsImV4cCI6MTc1MjgyNTYyMH0.yK0qWxuUJWJlrqmb5pO1yMQoLhRzMJAXX7Cg0iwNqd8",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDU1YmViZDZmYzc3MjBmMjc2OWIiLCJpYXQiOjE3NTM0MTcwNTEsImV4cCI6MTc1MzQyMDY1MX0.olpTWnoXTc67kjSEELC_Vmk4Kx2BytmMXksPFJDOPnk",
 								"type": "text"
 							}
 						],
@@ -193,116 +388,43 @@
 					"response": []
 				},
 				{
-					"name": "Update my own password",
-					"request": {
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjA0NmJiZTNkMmYyZDk3YjY2MmYiLCJpYXQiOjE3NTI4MjIwMjAsImV4cCI6MTc1MjgyNTYyMH0.yK0qWxuUJWJlrqmb5pO1yMQoLhRzMJAXX7Cg0iwNqd8",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"currentPassword\": \"Test@123\",\r\n    \"newPassword\": \"Test@123!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseURL}}/user/password/685dfddded541bc57812f5fe",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"user",
-								"password",
-								"685dfddded541bc57812f5fe"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Delete an user",
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZjQ2ZDg0MDhkNDI2NzQ1OGNjZjAiLCJpYXQiOjE3NTA5ODgyMDQsImV4cCI6MTc1MDk5MTgwNH0.MAiGU7Pe9ohNQvpYneQkviptdRTd4OU-xqYMSymR1yk",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{baseURL}}/conciencia/v1/user/685df46d8408d4267458ccf0",
+							"raw": "{{baseURL}}/user/688309ed9215c27dbf601e69",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
-								"conciencia",
-								"v1",
 								"user",
-								"685df46d8408d4267458ccf0"
+								"688309ed9215c27dbf601e69"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update my profile photo",
+					"name": "Update Rol",
 					"request": {
 						"method": "PATCH",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZmRkZGVkNTQxYmM1NzgxMmY1ZmUiLCJpYXQiOjE3NTA5OTAzMDEsImV4cCI6MTc1MDk5MzkwMX0.AqI0qaIPXZxyIuZaNVeNowCnZ4IltvKr6kJ3rS5sMCw",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/C:/Users/emili/Downloads/polonia.jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{baseURL}}/conciencia/v1/user/me/profile-picture",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"conciencia",
-								"v1",
-								"user",
-								"me",
-								"profile-picture"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update my profile",
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZjQ2ZDg0MDhkNDI2NzQ1OGNjZjAiLCJpYXQiOjE3NTA5ODgyMDQsImV4cCI6MTc1MDk5MTgwNH0.MAiGU7Pe9ohNQvpYneQkviptdRTd4OU-xqYMSymR1yk",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjYiLCJpYXQiOjE3NTM0MTg1MDMsImV4cCI6MTc1MzQyMjEwM30.VVLVC_7-o2U4i4IY0T4guRyhaWIY7XmWVA0nxe1dkDU",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"emili0@example.com\",\r\n}",
+							"raw": "{\r\n  \"role\": \"TEACHER_ROLE\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -310,36 +432,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURL}}/conciencia/v1/user/me",
-							"host": [
-								"{{baseURL}}"
-							],
-							"path": [
-								"conciencia",
-								"v1",
-								"user",
-								"me"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Forgot password",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"emiliojo.lux@gmail.com\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3001/conciencia/v1/auth/forgot-password",
+							"raw": "http://localhost:3001/conciencia/v1/user/688309ed9215c27dbf601e6c/role",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -348,40 +441,9 @@
 							"path": [
 								"conciencia",
 								"v1",
-								"auth",
-								"forgot-password"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Reset Password",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"password\": \"NuevaContraseña123!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3001/conciencia/v1/auth/reset-password/c6469a18997daa10533dc55600544b3eca07b199bb180dee9ed39e47532258bb",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3001",
-							"path": [
-								"conciencia",
-								"v1",
-								"auth",
-								"reset-password",
-								"c6469a18997daa10533dc55600544b3eca07b199bb180dee9ed39e47532258bb"
+								"user",
+								"688309ed9215c27dbf601e6c",
+								"role"
 							]
 						}
 					},
@@ -399,13 +461,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjAxZWJiZTNkMmYyZDk3YjY2MmMiLCJpYXQiOjE3NTI4MjY2OTgsImV4cCI6MTc1MjgzMDI5OH0.iWt86S-k__BrNgNritCRTXEPC_kyj9b85sCkOPnP-hg",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"The Wonders of Quantum Physics\",\r\n    \"content\": \"This is a deep dive into the fascinating world of quantum mechanics, entanglement, and superposition.\",\r\n    \"category\": [\"Astronomy\", \"Biology\"],\r\n    \"videos\": [\r\n        \"https://www.youtube.com/watch?v=some_video_id\"\r\n    ]\r\n}",
+							"raw": "{\r\n  \"title\": \"La importancia de la fotosíntesis en el ecosistema\",\r\n  \"content\": \"La fotosíntesis es el proceso mediante el cual las plantas convierten la luz solar en energía química...\",\r\n  \"category\": \"Biology\",\r\n  \"videos\": [\"https://www.youtube.com/watch?v=sQK3Yr4Sc_k\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -435,7 +497,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjAxZWJiZTNkMmYyZDk3YjY2MmMiLCJpYXQiOjE3NTI4MjY2OTgsImV4cCI6MTc1MjgzMDI5OH0.iWt86S-k__BrNgNritCRTXEPC_kyj9b85sCkOPnP-hg",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNmMiLCJpYXQiOjE3NTM0MTgyNTUsImV4cCI6MTc1MzQyMTg1NX0.jv6fecJCh5_CVWVTNPHMRpL7Ln-DVCP4RiS7shJV2cM",
 								"type": "text"
 							}
 						],
@@ -491,13 +553,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjAxZWJiZTNkMmYyZDk3YjY2MmMiLCJpYXQiOjE3NTI4MjY2OTgsImV4cCI6MTc1MjgzMDI5OH0.iWt86S-k__BrNgNritCRTXEPC_kyj9b85sCkOPnP-hg",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjYiLCJpYXQiOjE3NTM0MTg1MDMsImV4cCI6MTc1MzQyMjEwM30.VVLVC_7-o2U4i4IY0T4guRyhaWIY7XmWVA0nxe1dkDU",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"An Updated Title on Quantum Physics\",\r\n    \"content\": \"The content has been updated with new information.\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Physics clasic \",\r\n    \"content\": \"The content has been updated with new information.\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -505,7 +567,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/conciencia/v1/article/687a055577a68375a13ed4ab",
+							"raw": "http://localhost:3001/conciencia/v1/article/688309ed9215c27dbf601e79",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -515,7 +577,7 @@
 								"conciencia",
 								"v1",
 								"article",
-								"687a055577a68375a13ed4ab"
+								"688309ed9215c27dbf601e79"
 							]
 						}
 					},
@@ -528,7 +590,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjAxZWJiZTNkMmYyZDk3YjY2MmMiLCJpYXQiOjE3NTI4MjY2OTgsImV4cCI6MTc1MjgzMDI5OH0.iWt86S-k__BrNgNritCRTXEPC_kyj9b85sCkOPnP-hg",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
 								"type": "text"
 							}
 						],
@@ -542,7 +604,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/conciencia/v1/article/687a055577a68375a13ed4ab",
+							"raw": "http://localhost:3001/conciencia/v1/article/68830e04b7baf0993d333b6a",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -552,7 +614,7 @@
 								"conciencia",
 								"v1",
 								"article",
-								"687a055577a68375a13ed4ab"
+								"68830e04b7baf0993d333b6a"
 							]
 						}
 					},
@@ -570,7 +632,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjAxZWJiZTNkMmYyZDk3YjY2MmMiLCJpYXQiOjE3NTI4MjY2OTgsImV4cCI6MTc1MjgzMDI5OH0.iWt86S-k__BrNgNritCRTXEPC_kyj9b85sCkOPnP-hg",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
 								"type": "text"
 							}
 						],
@@ -584,7 +646,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/conciencia/v1/comment/687a061877a68375a13ed4c2",
+							"raw": "http://localhost:3001/conciencia/v1/comment/688309ed9215c27dbf601e79",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -594,7 +656,7 @@
 								"conciencia",
 								"v1",
 								"comment",
-								"687a061877a68375a13ed4c2"
+								"688309ed9215c27dbf601e79"
 							]
 						}
 					},
@@ -602,17 +664,29 @@
 				},
 				{
 					"name": "Get the comments for an article",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjAxZWJiZTNkMmYyZDk3YjY2MmMiLCJpYXQiOjE3NTI4MjY2OTgsImV4cCI6MTc1MjgzMDI5OH0.iWt86S-k__BrNgNritCRTXEPC_kyj9b85sCkOPnP-hg",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:3001/conciencia/v1/comment/article/687a061877a68375a13ed4c2",
+							"raw": "http://localhost:3001/conciencia/v1/comment/article/68830f93b7baf0993d333b8e",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -623,7 +697,7 @@
 								"v1",
 								"comment",
 								"article",
-								"687a061877a68375a13ed4c2"
+								"68830f93b7baf0993d333b8e"
 							]
 						}
 					},
@@ -636,13 +710,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjAxZWJiZTNkMmYyZDk3YjY2MmMiLCJpYXQiOjE3NTI4MjY2OTgsImV4cCI6MTc1MjgzMDI5OH0.iWt86S-k__BrNgNritCRTXEPC_kyj9b85sCkOPnP-hg",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"message\": \"I would like to edit my previous comment to add this.\"\r\n}",
+							"raw": "{\r\n  \"message\": \"Contenido actualizado del comentario\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -650,7 +724,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/conciencia/v1/comment/687a064c77a68375a13ed4c8",
+							"raw": "http://localhost:3001/conciencia/v1/comment/68830f93b7baf0993d333b8e",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -660,7 +734,7 @@
 								"conciencia",
 								"v1",
 								"comment",
-								"687a064c77a68375a13ed4c8"
+								"68830f93b7baf0993d333b8e"
 							]
 						}
 					},
@@ -899,6 +973,122 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get events favorite",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjE5MzQsImV4cCI6MTc1MzgyNTUzNH0.frIE8-7ZiAYyWF0vfTz_lkCkaAmCOTyw4w3NE-uw1ew",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/user/favorites",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"user",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add favorite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjE5MzQsImV4cCI6MTc1MzgyNTUzNH0.frIE8-7ZiAYyWF0vfTz_lkCkaAmCOTyw4w3NE-uw1ew",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/user/favorites/688373db930f68835ee4b43d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"user",
+								"favorites",
+								"688373db930f68835ee4b43d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete favorite event",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjE5MzQsImV4cCI6MTc1MzgyNTUzNH0.frIE8-7ZiAYyWF0vfTz_lkCkaAmCOTyw4w3NE-uw1ew",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/user/favorites/688373db930f68835ee4b43d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"user",
+								"favorites",
+								"688373db930f68835ee4b43d"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -912,7 +1102,7 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTM0MDg2NzgsImV4cCI6MTc1MzQxMjI3OH0.wpG1RRM_zHnH_-ZmWnAI2BOuECUeBuUvgSP3gPIRqCI",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM0NDg0ODYsImV4cCI6MTc1MzQ1MjA4Nn0.G5rPrXUJQFe50QVaWd9-gQmjXvUYZ-iLsl_IOAKAAIQ",
 								"type": "text"
 							}
 						],
@@ -926,7 +1116,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3001/conciencia/v1/reminder/6882e73cc8767f3b04056724",
+							"raw": "http://localhost:3001/conciencia/v1/reminder/688373db930f68835ee4b446",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -936,7 +1126,7 @@
 								"conciencia",
 								"v1",
 								"reminder",
-								"6882e73cc8767f3b04056724"
+								"688373db930f68835ee4b446"
 							]
 						}
 					},
