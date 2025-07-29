@@ -4,7 +4,7 @@ import { handleErrors } from "./handle-errors.js";
 import { validateJWT } from "./validate-jwt.js";
 import { hasRoles } from "./validate-roles.js";
 import { deleteFileOnError } from "./delete-file-on-error.js";
-import { emailExists, usernameExists, userExists } from "../helpers/db-validators.js";
+import { emailExists, usernameExists, userExists, eventExists } from "../helpers/db-validators.js";
 
 export const registerValidator = [
     body("name").notEmpty().withMessage("Name is required"),
@@ -128,6 +128,14 @@ export const resetPasswordValidator = [
         minNumbers: 1,
         minSymbols: 1
     }).withMessage("The password must contain at least 8 characters and at least one lowercase letter, one uppercase letter, one number, and one symbol"),
+    validateField,
+    handleErrors
+];
+
+export const favoriteEventValidator = [
+    validateJWT,
+    param("eventId").isMongoId().withMessage("The event id is not valid"),
+    param("eventId").custom(eventExists),
     validateField,
     handleErrors
 ];

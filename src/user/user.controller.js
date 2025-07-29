@@ -359,3 +359,82 @@ export const updateRole = async (req, res) => {
         });
     }
 };
+
+export const addFavoriteEvent = async (req, res) => {
+    try {
+        const { eventId } = req.params;
+        const { usuario } = req;
+
+        const user = await User.findById(usuario._id);
+
+        if (user.favorites.includes(eventId)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Event is already in favorites'
+            });
+        }
+
+        user.favorites.push(eventId);
+        await user.save();
+
+        return res.status(200).json({
+            success: true,
+            message: 'Event added to favorites successfully'
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error adding event to favorites',
+            error: error.message
+        });
+    }
+};
+
+export const removeFavoriteEvent = async (req, res) => {
+    try {
+        const { eventId } = req.params;
+        const { usuario } = req;
+
+        await User.findByIdAndUpdate(usuario._id, { $pull: { favorites: eventId } });
+
+        return res.status(200).json({
+            success: true,
+            message: 'Event removed from favorites successfully'
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error removing event from favorites',
+            error: error.message
+        });
+    }
+};
+
+export const getFavoriteEvents = async (req, res) => {
+    try {
+        const { usuario } = req;
+
+        const user = await User.findById(usuario._id).populate('favorites');
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: 'User not found'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            favorites: user.favorites
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error fetching favorite events',
+            error: error.message
+        });
+    }
+};
