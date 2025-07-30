@@ -30,6 +30,23 @@ const middlewares = (app) => {
 };
 
 const routes = (app) => {
+    // Root route handler
+    app.get("/", (req, res) => {
+        res.json({
+            message: "CON-CIENCIA API",
+            version: "1.0.0",
+            description: "Plataforma web que integra un Blog Científico Interactivo y un Organizador de Eventos Científicos",
+            endpoints: {
+                auth: "/conciencia/v1/auth",
+                user: "/conciencia/v1/user", 
+                article: "/conciencia/v1/article",
+                comment: "/conciencia/v1/comment",
+                event: "/conciencia/v1/event",
+                reminder: "/conciencia/v1/reminder"
+            }
+        });
+    });
+    
     app.use("/conciencia/v1/auth", authRoutes);
     app.use("/conciencia/v1/user", userRoutes);
     app.use("/conciencia/v1/article", articleRoutes);
@@ -50,16 +67,21 @@ const connectDB = async () => {
     }
 }
 
-export const initServer = () => {
+export const createApp = () => {
     const app = express();
+    middlewares(app);
+    connectDB();
+    routes(app);
+    swaggerDocs(app);
+    return app;
+};
+
+export const initServer = () => {
+    const app = createApp();
     try {
-        middlewares(app);
-        connectDB();
-        routes(app);
-        swaggerDocs(app);
-        const port = process.env.PORT;
+        const port = process.env.PORT || 3000;
         app.listen(port, () => {
-        console.log(`Server running on port ${port}`);
+            console.log(`Server running on port ${port}`);
         });
     } catch (err) {
         console.log(`Server init failed: ${err}`);

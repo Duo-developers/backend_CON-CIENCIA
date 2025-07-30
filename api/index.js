@@ -1,5 +1,7 @@
 import {config} from "dotenv";
-import { initServer } from "../config/server.js";
+import { createApp } from "../config/server.js";
 
 config();
-initServer();
+
+// Export the Express app for Vercel serverless functions
+export default createApp();
