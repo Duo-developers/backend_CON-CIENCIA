@@ -29,6 +29,7 @@ const middlewares = (app) => {
 };
 
 const routes = (app) => {
+    // Ruta raíz para evitar 404 en Vercel
     app.get("/", (req, res) => {
         res.json({
             message: "CON-CIENCIA API Backend",
@@ -71,17 +72,4 @@ export const createApp = () => {
     routes(app);
     swaggerDocs(app);
     return app;
-};
-
-export const initServer = () => {
-    const app = createApp();
-    try {
-        connectDB();
-        const port = process.env.PORT || 3000;
-        app.listen(port, () => {
-            console.log(`Server running on port ${port}`);
-        });
-    } catch (err) {
-        console.log(`Server init failed: ${err}`);
-    }
 };
