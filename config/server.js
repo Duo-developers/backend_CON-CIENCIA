@@ -14,12 +14,11 @@ import { createDefaultUsers  } from "../src/utils/defaultUser.js";
 import { createDefaultEvents, createDefaultArticlesAndComments } from "../src/utils/defaultContent.js";
 import { swaggerDocs } from './swagger.js';
 
-
 const middlewares = (app) => {
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
     app.use(cors({
-        origin: 'http://localhost:5173',
+        origin: ['http://localhost:5173', 'https://frontend-con-ciencia.vercel.app'],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH','OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true
@@ -30,6 +29,23 @@ const middlewares = (app) => {
 };
 
 const routes = (app) => {
+    app.get("/", (req, res) => {
+        res.json({
+            message: "CON-CIENCIA API Backend",
+            version: "1.0.0",
+            status: "Running",
+            endpoints: {
+                auth: "/conciencia/v1/auth",
+                users: "/conciencia/v1/user", 
+                articles: "/conciencia/v1/article",
+                comments: "/conciencia/v1/comment",
+                events: "/conciencia/v1/event",
+                reminders: "/conciencia/v1/reminder",
+                docs: "/api-docs"
+            }
+        });
+    });
+
     app.use("/conciencia/v1/auth", authRoutes);
     app.use("/conciencia/v1/user", userRoutes);
     app.use("/conciencia/v1/article", articleRoutes);
@@ -46,20 +62,24 @@ const connectDB = async () => {
         await createDefaultArticlesAndComments();
     } catch (error) {
         console.error("Database connection failed:", error);
-        process.exit(1); 
     }
 }
 
-export const initServer = () => {
+export const createApp = () => {
     const app = express();
+    middlewares(app);
+    routes(app);
+    swaggerDocs(app);
+    return app;
+};
+
+export const initServer = () => {
+    const app = createApp();
     try {
-        middlewares(app);
         connectDB();
-        routes(app);
-        swaggerDocs(app);
-        const port = process.env.PORT;
+        const port = process.env.PORT || 3000;
         app.listen(port, () => {
-        console.log(`Server running on port ${port}`);
+            console.log(`Server running on port ${port}`);
         });
     } catch (err) {
         console.log(`Server init failed: ${err}`);
