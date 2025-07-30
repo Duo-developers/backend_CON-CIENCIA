@@ -1,0 +1,1229 @@
+{
+	"info": {
+		"_postman_id": "d6947cbf-766c-45de-a251-03efa4d1637a",
+		"name": "CON-CIENCIA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37780367"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Test User",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "testuser",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "testuser@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Test@123",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/emili/Downloads/earth-11015_640.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with email (ADMIN)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"emiliojo.lux@gmail.com\",\r\n  \"password\": \"Emilio1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login with username (TEACHER)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"ProfeCiencia\",\r\n  \"password\": \"TeacherConCiencia#\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login (USER)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"user@conciencia.com\",\r\n  \"password\": \"UserCiencia$2025\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/auth/login",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update my profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDU1YmViZDZmYzc3MjBmMjc2OWIiLCJpYXQiOjE3NTM0MTcwNTEsImV4cCI6MTc1MzQyMDY1MX0.olpTWnoXTc67kjSEELC_Vmk4Kx2BytmMXksPFJDOPnk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"emili0@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/me",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update my own password",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDU1YmViZDZmYzc3MjBmMjc2OWIiLCJpYXQiOjE3NTM0MTcwNTEsImV4cCI6MTc1MzQyMDY1MX0.olpTWnoXTc67kjSEELC_Vmk4Kx2BytmMXksPFJDOPnk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"currentPassword\": \"Test@123\",\r\n    \"newPassword\": \"Test@123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/password",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"password\": \"NuevaContraseña123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/auth/reset-password/c6469a18997daa10533dc55600544b3eca07b199bb180dee9ed39e47532258bb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"auth",
+								"reset-password",
+								"c6469a18997daa10533dc55600544b3eca07b199bb180dee9ed39e47532258bb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"emiliojo.lux@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/auth/forgot-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update my profile photo",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNmMzkzMGY2ODgzNWVlNGI0NjAiLCJpYXQiOjE3NTM0NDUzNjMsImV4cCI6MTc1MzQ0ODk2M30.L4ZqIrqOlaqUg0VXcZGCpsb2g2IYuKwsaczyAOYuHn4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/emili/Downloads/Niveles inglés.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/user/me/profile-picture",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"user",
+								"me",
+								"profile-picture"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Usuarios (ADMIN)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDU1YmViZDZmYzc3MjBmMjc2OWIiLCJpYXQiOjE3NTM0MTcwNTEsImV4cCI6MTc1MzQyMDY1MX0.olpTWnoXTc67kjSEELC_Vmk4Kx2BytmMXksPFJDOPnk",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/user/",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar usuario por ID (ADMIN)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjA0NmJiZTNkMmYyZDk3YjY2MmYiLCJpYXQiOjE3NTI4MjIwMjAsImV4cCI6MTc1MjgyNTYyMH0.yK0qWxuUJWJlrqmb5pO1yMQoLhRzMJAXX7Cg0iwNqd8",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/user/685df46d8408d4267458ccf0",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"685df46d8408d4267458ccf0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar un usuario por ID (ADMIN)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODVkZjQ2ZDg0MDhkNDI2NzQ1OGNjZjAiLCJpYXQiOjE3NTA5ODg5NDcsImV4cCI6MTc1MDk5MjU0N30.f5Ocbd-cEae7H_xrAPGJNFNv7ca0c5CI7-W4DgJ-kmo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Carlos López\",\r\n    \"username\": \"clopez_dev\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/user/685dfb053a78bb4b5f99d570",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"685dfb053a78bb4b5f99d570"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/user/688309ed9215c27dbf601e69",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"user",
+								"688309ed9215c27dbf601e69"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Rol",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjYiLCJpYXQiOjE3NTM0MTg1MDMsImV4cCI6MTc1MzQyMjEwM30.VVLVC_7-o2U4i4IY0T4guRyhaWIY7XmWVA0nxe1dkDU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"role\": \"TEACHER_ROLE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/user/688309ed9215c27dbf601e6c/role",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"user",
+								"688309ed9215c27dbf601e6c",
+								"role"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Articles",
+			"item": [
+				{
+					"name": "Create an article",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"La importancia de la fotosíntesis en el ecosistema\",\r\n  \"content\": \"La fotosíntesis es el proceso mediante el cual las plantas convierten la luz solar en energía química...\",\r\n  \"category\": \"Biology\",\r\n  \"videos\": [\"https://www.youtube.com/watch?v=sQK3Yr4Sc_k\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/article",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"article"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Articles",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNmMiLCJpYXQiOjE3NTM0MTgyNTUsImV4cCI6MTc1MzQyMTg1NX0.jv6fecJCh5_CVWVTNPHMRpL7Ln-DVCP4RiS7shJV2cM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/article/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"article",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Article by ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjAxZWJiZTNkMmYyZDk3YjY2MmMiLCJpYXQiOjE3NTI4MjY2OTgsImV4cCI6MTc1MjgzMDI5OH0.iWt86S-k__BrNgNritCRTXEPC_kyj9b85sCkOPnP-hg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/article/687a0358c6a2e942e62e7c97",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"article",
+								"687a0358c6a2e942e62e7c97"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an article",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjYiLCJpYXQiOjE3NTM0MTg1MDMsImV4cCI6MTc1MzQyMjEwM30.VVLVC_7-o2U4i4IY0T4guRyhaWIY7XmWVA0nxe1dkDU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Physics clasic \",\r\n    \"content\": \"The content has been updated with new information.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/article/688309ed9215c27dbf601e79",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"article",
+								"688309ed9215c27dbf601e79"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an article",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/article/68830e04b7baf0993d333b6a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"article",
+								"68830e04b7baf0993d333b6a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comments",
+			"item": [
+				{
+					"name": "Create a Comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"message\": \"This is a very insightful article, thank you for sharing!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/comment/688309ed9215c27dbf601e79",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"comment",
+								"688309ed9215c27dbf601e79"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the comments for an article",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/comment/article/68830f93b7baf0993d333b8e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"comment",
+								"article",
+								"68830f93b7baf0993d333b8e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put a comment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzMDllZDkyMTVjMjdkYmY2MDFlNjkiLCJpYXQiOjE3NTM0MTgyODYsImV4cCI6MTc1MzQyMTg4Nn0.gYmy2sPVekn4F28jjgAmxd0gogHDifJj2xiN4lMFfyc",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"message\": \"Contenido actualizado del comentario\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/comment/68830f93b7baf0993d333b8e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"comment",
+								"68830f93b7baf0993d333b8e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODc5ZjAxZWJiZTNkMmYyZDk3YjY2MmMiLCJpYXQiOjE3NTI4MjY2OTgsImV4cCI6MTc1MjgzMDI5OH0.iWt86S-k__BrNgNritCRTXEPC_kyj9b85sCkOPnP-hg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/comment/687a064c77a68375a13ed4c8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"comment",
+								"687a064c77a68375a13ed4c8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Create Event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTM0MDg2NzgsImV4cCI6MTc1MzQxMjI3OH0.wpG1RRM_zHnH_-ZmWnAI2BOuECUeBuUvgSP3gPIRqCI",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Conferencia de Astronomía\",\r\n  \"date\": \"2025-08-15T18:00:00.000Z\",\r\n  \"location\": \"Auditorio Central\",\r\n  \"description\": \"Charla sobre los últimos descubrimientos en astronomía.\",\r\n  \"category\": \"Astronomy\",\r\n  \"externalLinks\": [\r\n    {\r\n      \"title\": \"Sitio oficial\",\r\n      \"url\": \"https://astronomia.org\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/event/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"event",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Events",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTMzOTkwMDQsImV4cCI6MTc1MzQwMjYwNH0.b14GsXax4zOLsU16RWMIgJ8kkm07Q0uzSm75g8aJM4A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/event/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"event",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get event by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTMzOTkwMDQsImV4cCI6MTc1MzQwMjYwNH0.b14GsXax4zOLsU16RWMIgJ8kkm07Q0uzSm75g8aJM4A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/event/6882bf747ce4e42130178b78",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"event",
+								"6882bf747ce4e42130178b78"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Event",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTMzOTkwMDQsImV4cCI6MTc1MzQwMjYwNH0.b14GsXax4zOLsU16RWMIgJ8kkm07Q0uzSm75g8aJM4A",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Conferencia de astrofísica\",\r\n  \"date\": \"2025-09-01T18:00:00.000Z\",\r\n  \"location\": \"Auditorio nacional civil\",\r\n  \"description\": \"Descripción actualizada\",\r\n  \"category\": \"Biology\",\r\n  \"externalLinks\": [\r\n    {\r\n      \"title\": \"Nuevo enlace\",\r\n      \"url\": \"https://nuevoenlace.com\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/event/6882bf747ce4e42130178b78",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"event",
+								"6882bf747ce4e42130178b78"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Event",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgxYzhhZTVhYzcyYWVjODJkZjllYTgiLCJpYXQiOjE3NTM0MDg2NzgsImV4cCI6MTc1MzQxMjI3OH0.wpG1RRM_zHnH_-ZmWnAI2BOuECUeBuUvgSP3gPIRqCI",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/event/6882e4b81e56e4908189ac3a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"event",
+								"6882e4b81e56e4908189ac3a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get events favorite",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjE5MzQsImV4cCI6MTc1MzgyNTUzNH0.frIE8-7ZiAYyWF0vfTz_lkCkaAmCOTyw4w3NE-uw1ew",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/user/favorites",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"user",
+								"favorites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add favorite",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjE5MzQsImV4cCI6MTc1MzgyNTUzNH0.frIE8-7ZiAYyWF0vfTz_lkCkaAmCOTyw4w3NE-uw1ew",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/user/favorites/688373db930f68835ee4b43d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"user",
+								"favorites",
+								"688373db930f68835ee4b43d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete favorite event",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjE5MzQsImV4cCI6MTc1MzgyNTUzNH0.frIE8-7ZiAYyWF0vfTz_lkCkaAmCOTyw4w3NE-uw1ew",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/user/favorites/688373db930f68835ee4b43d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"user",
+								"favorites",
+								"688373db930f68835ee4b43d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reminders",
+			"item": [
+				{
+					"name": "Create remember",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjU0MjYsImV4cCI6MTc1MzgyOTAyNn0.eud5NnklWvVRTJ7mAeClpKH9QiWFr7WA2QAVnanNif0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reminderTime\": \"2025-10-05T10:00:00.000Z\",\r\n    \"notificationMethod\": \"email\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/reminder/688373db930f68835ee4b43d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"reminder",
+								"688373db930f68835ee4b43d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all the remember",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjU0MjYsImV4cCI6MTc1MzgyOTAyNn0.eud5NnklWvVRTJ7mAeClpKH9QiWFr7WA2QAVnanNif0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/reminder/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"reminder",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get remember by DI",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjU0MjYsImV4cCI6MTc1MzgyOTAyNn0.eud5NnklWvVRTJ7mAeClpKH9QiWFr7WA2QAVnanNif0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/reminder/688940eabda2ed188c66164e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"reminder",
+								"688940eabda2ed188c66164e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Remember",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2ODgzNzNkYTkzMGY2ODgzNWVlNGI0MzMiLCJpYXQiOjE3NTM4MjU0MjYsImV4cCI6MTc1MzgyOTAyNn0.eud5NnklWvVRTJ7mAeClpKH9QiWFr7WA2QAVnanNif0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3001/conciencia/v1/reminder/688940eabda2ed188c66164e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3001",
+							"path": [
+								"conciencia",
+								"v1",
+								"reminder",
+								"688940eabda2ed188c66164e"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "http://localhost:3001",
+			"type": "default"
+		}
+	]
+}
