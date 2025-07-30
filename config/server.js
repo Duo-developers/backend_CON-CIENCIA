@@ -1,4 +1,3 @@
-import { dbConnection } from "./mongo.js";
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -10,11 +9,12 @@ import articleRoutes from "../src/article/article.routes.js";
 import commentRoutes from "../src/comment/comment.routes.js";
 import eventRoutes from "../src/event/event.routes.js";
 import reminderRoutes from "../src/reminder/reminder.routes.js"; 
-import { createDefaultUsers  } from "../src/utils/defaultUser.js";
-import { createDefaultEvents, createDefaultArticlesAndComments } from "../src/utils/defaultContent.js";
 import { swaggerDocs } from './swagger.js';
 
 const middlewares = (app) => {
+    // ✅ CONFIGURAR TRUST PROXY PARA VERCEL
+    app.set('trust proxy', 1); // Confiar en el primer proxy (Vercel)
+    
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
     app.use(cors({
@@ -55,17 +55,7 @@ const routes = (app) => {
     app.use("/conciencia/v1/reminder", reminderRoutes);
 }
 
-const connectDB = async () => {
-    try {
-        await dbConnection();
-        await createDefaultUsers();
-        await createDefaultEvents();
-        await createDefaultArticlesAndComments();
-    } catch (error) {
-        console.error("Database connection failed:", error);
-    }
-}
-
+// Crear y configurar la aplicación Express para Vercel
 export const createApp = () => {
     const app = express();
     middlewares(app);
