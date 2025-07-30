@@ -12,8 +12,7 @@ import reminderRoutes from "../src/reminder/reminder.routes.js";
 import { swaggerDocs } from './swagger.js';
 
 const middlewares = (app) => {
-    // ✅ CONFIGURAR TRUST PROXY PARA VERCEL
-    app.set('trust proxy', 1); // Confiar en el primer proxy (Vercel)
+    app.set('trust proxy', 1); 
     
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
@@ -29,7 +28,6 @@ const middlewares = (app) => {
 };
 
 const routes = (app) => {
-    // Ruta raíz para evitar 404 en Vercel
     app.get("/", (req, res) => {
         res.json({
             message: "CON-CIENCIA API Backend",
@@ -55,7 +53,6 @@ const routes = (app) => {
     app.use("/conciencia/v1/reminder", reminderRoutes);
 }
 
-// Crear y configurar la aplicación Express para Vercel
 export const createApp = () => {
     const app = express();
     middlewares(app);

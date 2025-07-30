@@ -11,8 +11,12 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${process.env.PORT || 3001}`,
-        description: 'Servidor de desarrollo',
+        url: 'https://backend-con-ciencia.vercel.app', 
+        description: 'Servidor de Producción',
+      },
+      {
+        url: `http://localhost:${process.env.PORT || 3001}`, 
+        description: 'Servidor de Desarrollo',
       },
     ],
     components: {
