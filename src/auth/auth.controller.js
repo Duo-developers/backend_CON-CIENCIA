@@ -7,10 +7,18 @@ import { getResetPasswordEmailTemplate } from "../templates/reset-password-email
 
 export const register = async (req, res) => {
     try {
+        console.log("🚀 [auth.controller] Iniciando registro...");
+        console.log("   req.body:", req.body);
+        console.log("   req.img:", req.img);
+        console.log("   req.file:", req.file ? "Presente" : "NO presente");
+        
         const data = req.body;
 
         if (req.img) {
             data.perfil = req.img;
+            console.log("✅ [auth.controller] Imagen asignada al perfil:", data.perfil);
+        } else {
+            console.log("⚠️ [auth.controller] No hay imagen en req.img");
         }
 
         const encryptPassword = await hash(data.password);
@@ -30,6 +38,7 @@ export const register = async (req, res) => {
             }
         });
     } catch (err) {
+        console.error("❌ [auth.controller] Error en registro:", err);
         return res.status(500).json({
             message: "User registration failed",
             success: false,
