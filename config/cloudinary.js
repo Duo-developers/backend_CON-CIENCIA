@@ -1,9 +1,11 @@
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-import { v2 as cloudinary } from "cloudinary";
+import pkg from "cloudinary"; // ✅ Cambio aquí
 import { extname } from "path";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from "uuid";
+
+const { v2: cloudinary } = pkg; // ✅ Extraer v2 del package
 
 console.log("🔧 [cloudinary.js] Iniciando configuración...");
 
@@ -15,11 +17,18 @@ console.log("   CLOUDINARY_CLOUD_NAME:", process.env.CLOUDINARY_CLOUD_NAME ? "�
 console.log("   CLOUDINARY_API_KEY:", process.env.CLOUDINARY_API_KEY ? "✅ Definida" : "❌ NO definida");
 console.log("   CLOUDINARY_API_SECRET:", process.env.CLOUDINARY_API_SECRET ? "✅ Definida" : "❌ NO definida");
 
+// ✅ Verificar que cloudinary existe antes de configurar
+console.log("🔧 [cloudinary.js] Cloudinary object:", cloudinary);
+
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
+
+// ✅ Verificar que la configuración se aplicó
+console.log("🔧 [cloudinary.js] Cloudinary config:", cloudinary.config());
+console.log("🔧 [cloudinary.js] Cloudinary uploader:", cloudinary.uploader ? "✅ Disponible" : "❌ NO disponible");
 
 console.log("✅ [cloudinary.js] Cloudinary configurado");
 
@@ -37,6 +46,7 @@ export const removeCloudinaryUrl = (url) => {
 
 const createMulterUpload = (baseFolder, categoryFolder, useMaterialName = false, maxFileSize = 10 * 1024 * 1024) => {
     console.log(`🔧 [cloudinary.js] Creando multer upload para: ${baseFolder}/${categoryFolder}`);
+    console.log("🔧 [cloudinary.js] Cloudinary en createMulterUpload:", cloudinary);
     
     const storage = new CloudinaryStorage({
         cloudinary: cloudinary,
