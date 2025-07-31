@@ -245,40 +245,40 @@ export const deleteUser = async (req, res) => {
 }
 
 export const updateProfilePicture = async (req, res) => {
-    try{
+    try {
         const { usuario } = req;
-        const data = req.body;
 
-        if(!req.img){ 
+        if (!req.file || !req.file.path) {
             return res.status(400).json({
                 success: false,
-                message: 'No image uploaded'
+                message: 'No se ha subido ninguna imagen'
             });
         }
 
-        data.perfil = req.img; 
+        const perfilUrl = req.file.path; 
+        const updatedUser = await User.findByIdAndUpdate(
+            usuario._id,
+            { perfil: perfilUrl },
+            { new: true }
+        );
 
-        const userFound = await User.findById(usuario._id);
-
-        if (!userFound ) {
+        if (!updatedUser) {
             return res.status(404).json({
                 success: false,
-                message: 'User not found or inactive'
+                message: 'Usuario no encontrado'
             });
         }
-
-        const updatedUser = await User.findByIdAndUpdate(usuario._id, { perfil: data.perfil }, { new: true });
 
         return res.status(200).json({
             success: true,
-            message: 'Profile picture updated successfully',
+            message: 'Imagen de perfil actualizada correctamente',
             profilePicture: updatedUser.perfil
         });
-        
-    }catch(err) {
+
+    } catch (err) {
         return res.status(500).json({
             success: false,
-            message: 'Error updating profile picture',
+            message: 'Error al actualizar la imagen de perfil',
             error: err.message
         });
     }
