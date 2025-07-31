@@ -10,4 +10,4 @@ console.log("[api/index.js] Creando app Express...");
 const app = createApp();
 
 console.log("[api/index.js] Exportando handler...");
-export const handler = serverless(app);
+export default serverless(app);
