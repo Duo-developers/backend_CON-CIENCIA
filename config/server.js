@@ -65,12 +65,15 @@ const connectDB = async () => {
     }
 };
 
-export const createApp = () => {
+export const createApp = async () => {
     console.log("[server.js] Inicializando app Express...");
     const app = express();
 
     middlewares(app);
-    connectDB();
+    
+    // Await la conexión a la base de datos
+    await connectDB();
+    
     routes(app);
     swaggerDocs(app);
 
