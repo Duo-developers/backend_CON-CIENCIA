@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node api/index.js",
+    "dev": "nodemon load-env-first.js",
     "dev": "node --watch api/index.js",
     "seed": "node scripts/seed-database.js"
   },
@@ -33,6 +34,7 @@
     "helmet": "^8.1.0",
     "install": "^0.13.0",
     "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.18.0",
     "mongoose": "^8.16.0",
     "morgan": "^1.10.0",
     "multer": "^2.0.1",

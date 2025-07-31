@@ -28,7 +28,7 @@ const createUserIfNotExists = async (userData) => {
         console.log(`✅ Usuario '${username}' con rol '${role}' creado exitosamente.`);
 
     } catch (error) {
-        console.error(`Error al crear el usuario por defecto '${username}':`, error);
+        console.error(`Error al crear el usuario por defecto`, error);
     }
 };
 

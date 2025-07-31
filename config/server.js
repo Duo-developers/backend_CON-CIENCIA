@@ -10,10 +10,12 @@ import commentRoutes from "../src/comment/comment.routes.js";
 import eventRoutes from "../src/event/event.routes.js";
 import reminderRoutes from "../src/reminder/reminder.routes.js"; 
 import { swaggerDocs } from './swagger.js';
+import dbConnection from "./mongo.js"
+import { createDefaultEvents, createDefaultArticlesAndComments } from "../src/utils/defaultContent.js"
+import { createDefaultUsers } from "../src/utils/defaultUser.js"
 
 const middlewares = (app) => {
     app.set('trust proxy', 1); 
-    
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
     app.use(cors({
@@ -53,9 +55,22 @@ const routes = (app) => {
     app.use("/conciencia/v1/reminder", reminderRoutes);
 }
 
+const connectDB = async () => {
+    try {
+        await dbConnection();
+        await createDefaultUsers();
+        await createDefaultEvents();
+        createDefaultArticlesAndComments();
+    } catch (error) {
+        console.error("Database connection failed:", error);
+        process.exit(1); 
+    }
+}
+
 export const createApp = () => {
     const app = express();
     middlewares(app);
+    connectDB();
     routes(app);
     swaggerDocs(app);
     return app;

@@ -1,14 +1,22 @@
 import sgMail from '@sendgrid/mail';
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const initSendGrid = () => {
+    const key = process.env.SENDGRID_API_KEY;
+    if (!key || !key.startsWith("SG.")) {
+        console.error("SendGrid: Invalid API key");
+        throw new Error("Invalid SendGrid API key");
+    }
+    sgMail.setApiKey(key);
+};
 
 export const sendReminderEmail = async (to, subject, html, text) => {
+    initSendGrid(); // ⚠️ aquí se asegura que .env ya esté cargado
     const msg = {
         to,
         from: process.env.SENDGRID_SENDER,
         subject,
-        text, 
-        html, 
+        text,
+        html,
     };
 
     try {
@@ -18,6 +26,7 @@ export const sendReminderEmail = async (to, subject, html, text) => {
         throw new Error("Failed to send reminder email");
     }
 };
+
 
 export const sendPasswordResetEmail = async (to, subject, text, html) => {
     const msg = {
