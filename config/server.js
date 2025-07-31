@@ -32,24 +32,6 @@ const middlewares = (app) => {
 };
 
 const routes = (app) => {
-    console.log("[server.js] Cargando rutas...");
-    app.get("/", (req, res) => {
-        res.json({
-            message: "CON-CIENCIA API Backend",
-            version: "1.0.0",
-            status: "Running",
-            endpoints: {
-                auth: "/conciencia/v1/auth",
-                users: "/conciencia/v1/user", 
-                articles: "/conciencia/v1/article",
-                comments: "/conciencia/v1/comment",
-                events: "/conciencia/v1/event",
-                reminders: "/conciencia/v1/reminder",
-                docs: "/api-docs"
-            }
-        });
-    });
-
     app.use("/conciencia/v1/auth", authRoutes);
     app.use("/conciencia/v1/user", userRoutes);
     app.use("/conciencia/v1/article", articleRoutes);
