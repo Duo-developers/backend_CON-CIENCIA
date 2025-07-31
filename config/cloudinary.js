@@ -1,13 +1,14 @@
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "cloudinary";
+import { v2 as cloudinary } from "cloudinary"; // ✅ Cambio aquí
 import { extname } from "path";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from "uuid";
 
 dotenv.config();
 
-cloudinary.v2.config({
+// ✅ Cambio aquí - usar cloudinary directamente
+cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
@@ -21,12 +22,14 @@ const sanitizeFileName = (name) => {
 };
 
 export const removeCloudinaryUrl = (url) => {
-    return url.replace(process.env.CLOUDINARY_URL, "");
+    // ✅ Construir la URL base dinámicamente
+    const baseUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`;
+    return url.replace(baseUrl, "");
 };
 
 const createMulterUpload = (baseFolder, categoryFolder, useMaterialName = false, maxFileSize = 10 * 1024 * 1024) => {
     const storage = new CloudinaryStorage({
-        cloudinary: cloudinary.v2,
+        cloudinary: cloudinary, // ✅ Cambio aquí - usar cloudinary directamente
         params: async (req, file) => {
             const fileExtension = extname(file.originalname);
             const uniqueId = uuidv4().slice(0, 8);
@@ -37,10 +40,6 @@ const createMulterUpload = (baseFolder, categoryFolder, useMaterialName = false,
             }
 
             const publicId = `${fileName}-${uniqueId}`;
-            const relativePath = `${baseFolder}/${categoryFolder}/${publicId}.${fileExtension.replace(".", "")}`;
-
-            if (!req.tempImagePublicIds) req.tempImagePublicIds = [];
-            req.tempImagePublicIds.push(relativePath);
 
             const isPdf = file.mimetype === "application/pdf";
 
