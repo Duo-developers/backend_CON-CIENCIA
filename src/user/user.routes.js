@@ -236,7 +236,7 @@ router.put('/me', updateUserValidator, updateMe);
  *       500:
  *         description: Error del servidor
  */
-router.patch('/me/profile-picture', uploadUserImg.single("img"), updateProfilePictureValidator, updateProfilePicture);
+router.patch('/me/profile-picture', ...uploadUserImg.single("img"), updateProfilePictureValidator, updateProfilePicture);
 
 /**
  * @swagger
