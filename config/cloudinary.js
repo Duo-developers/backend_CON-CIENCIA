@@ -1,19 +1,19 @@
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-import pkg from "cloudinary"; // ✅ Cambio aquí
+import pkg from "cloudinary";
 import { extname } from "path";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from "uuid";
 
-const { v2: cloudinary } = pkg; // ✅ Extraer v2 del package
+const { v2: cloudinary } = pkg;
 
 console.log("🔧 [cloudinary.js] Iniciando configuración...");
 
 dotenv.config();
 
-// ✅ Logs para verificar variables de entorno
+// ✅ Corregir nombres de variables para que coincidan con .env
 console.log("🔧 [cloudinary.js] Variables de entorno:");
-console.log("   CLOUDINARY_CLOUD_NAME:", process.env.CLOUDINARY_CLOUD_NAME ? "✅ Definida" : "❌ NO definida");
+console.log("   CLOUDINARY_NAME:", process.env.CLOUDINARY_NAME ? "✅ Definida" : "❌ NO definida");
 console.log("   CLOUDINARY_API_KEY:", process.env.CLOUDINARY_API_KEY ? "✅ Definida" : "❌ NO definida");
 console.log("   CLOUDINARY_API_SECRET:", process.env.CLOUDINARY_API_SECRET ? "✅ Definida" : "❌ NO definida");
 
@@ -21,7 +21,7 @@ console.log("   CLOUDINARY_API_SECRET:", process.env.CLOUDINARY_API_SECRET ? "�
 console.log("🔧 [cloudinary.js] Cloudinary object:", cloudinary);
 
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    cloud_name: process.env.CLOUDINARY_NAME, // ✅ Cambio aquí
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
@@ -40,7 +40,7 @@ const sanitizeFileName = (name) => {
 };
 
 export const removeCloudinaryUrl = (url) => {
-    const baseUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`;
+    const baseUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_NAME}/`; // ✅ Cambio aquí
     return url.replace(baseUrl, "");
 };
 
@@ -129,6 +129,3 @@ const createMulterUpload = (baseFolder, categoryFolder, useMaterialName = false,
 console.log("🔧 [cloudinary.js] Creando uploadUserImg...");
 export const uploadUserImg = createMulterUpload("user", "profilePicture", true);
 console.log("✅ [cloudinary.js] uploadUserImg creado exitosamente");
-
-
-
