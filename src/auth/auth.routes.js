@@ -142,7 +142,7 @@ const router = Router();
  *       500:
  *         description: Error del servidor
  */
-router.post('/register', uploadUserImg.single('img'), registerValidator, register);
+router.post('/register', uploadUserImg.single('image'), registerValidator, register);
 
 /**
  * @swagger
