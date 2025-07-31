@@ -29,6 +29,7 @@ export const sendReminderEmail = async (to, subject, html, text) => {
 
 
 export const sendPasswordResetEmail = async (to, subject, text, html) => {
+    initSendGrid();
     const msg = {
         to,
         from: process.env.SENDGRID_SENDER,
