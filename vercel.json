@@ -3,10 +3,7 @@
   "builds": [
     {
       "src": "./api/index.js",
-      "use": "@vercel/node",
-      "config": {
-        "includeFiles": ["config/**", "src/**"]
-      }
+      "use": "@vercel/node"
     }
   ],
   "routes": [
@@ -14,10 +11,5 @@
       "src": "/(.*)",
       "dest": "api/index.js"
     }
-  ],
-  "functions": {
-    "api/index.js": {
-      "maxDuration": 30
-    }
-  }
+  ]
 }
