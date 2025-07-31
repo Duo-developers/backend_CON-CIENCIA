@@ -2,12 +2,12 @@
   "name": "backend_con-ciencia",
   "version": "1.0.0",
   "description": "CON-CIENCIA es una plataforma web que integra un Blog Científico Interactivo y un Organizador de Eventos Científicos. Permite a los usuarios explorar artículos científicos organizados por categorías, comentar y participar en discusiones, así como descubrir y gestionar eventos académicos.",
-  "main": "api/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node api/index.js",
+    "start": "node index.js",
     "dev": "nodemon load-env-first.js",
-    "dev": "node --watch api/index.js",
+    "dev": "node --watch index.js",
     "seed": "node scripts/seed-database.js"
   },
   "repository": {
