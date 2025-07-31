@@ -63,7 +63,7 @@ const createMulterUpload = (baseFolder, categoryFolder, useMaterialName = false,
     });
 };
 
-export const uploadUserImg = createMulterUpload("user", "profilePicture", true);
+export const uploadUserImg = createMulterUpload("user", "perfil", true);
 
 
 
