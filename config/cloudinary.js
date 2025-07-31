@@ -11,24 +11,12 @@ console.log("🔧 [cloudinary.js] Iniciando configuración...");
 
 dotenv.config();
 
-// ✅ Corregir nombres de variables para que coincidan con .env
-console.log("🔧 [cloudinary.js] Variables de entorno:");
-console.log("   CLOUDINARY_NAME:", process.env.CLOUDINARY_NAME ? "✅ Definida" : "❌ NO definida");
-console.log("   CLOUDINARY_API_KEY:", process.env.CLOUDINARY_API_KEY ? "✅ Definida" : "❌ NO definida");
-console.log("   CLOUDINARY_API_SECRET:", process.env.CLOUDINARY_API_SECRET ? "✅ Definida" : "❌ NO definida");
-
-// ✅ Verificar que cloudinary existe antes de configurar
-console.log("🔧 [cloudinary.js] Cloudinary object:", cloudinary);
-
+// ✅ Configurar cloudinary
 cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_NAME, // ✅ Cambio aquí
+    cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-
-// ✅ Verificar que la configuración se aplicó
-console.log("🔧 [cloudinary.js] Cloudinary config:", cloudinary.config());
-console.log("🔧 [cloudinary.js] Cloudinary uploader:", cloudinary.uploader ? "✅ Disponible" : "❌ NO disponible");
 
 console.log("✅ [cloudinary.js] Cloudinary configurado");
 
@@ -40,18 +28,19 @@ const sanitizeFileName = (name) => {
 };
 
 export const removeCloudinaryUrl = (url) => {
-    const baseUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_NAME}/`; // ✅ Cambio aquí
+    const baseUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_NAME}/`;
     return url.replace(baseUrl, "");
 };
 
 const createMulterUpload = (baseFolder, categoryFolder, useMaterialName = false, maxFileSize = 10 * 1024 * 1024) => {
     console.log(`🔧 [cloudinary.js] Creando multer upload para: ${baseFolder}/${categoryFolder}`);
-    console.log("🔧 [cloudinary.js] Cloudinary en createMulterUpload:", cloudinary);
     
+    // ✅ Crear storage con logs de depuración
     const storage = new CloudinaryStorage({
-        cloudinary: cloudinary,
+        cloudinary: cloudinary, // ✅ Pasar la instancia directamente
         params: async (req, file) => {
             console.log("📁 [CloudinaryStorage] Procesando archivo:", file.originalname);
+            console.log("📁 [CloudinaryStorage] Cloudinary uploader disponible:", !!cloudinary.uploader);
             
             const fileExtension = extname(file.originalname);
             const uniqueId = uuidv4().slice(0, 8);
@@ -67,8 +56,8 @@ const createMulterUpload = (baseFolder, categoryFolder, useMaterialName = false,
             const params = {
                 folder: `${baseFolder}/${categoryFolder}`,
                 public_id: publicId,
-                format: fileExtension.replace(".", ""),
-                resource_type: isPdf ? "raw" : "auto"
+                resource_type: isPdf ? "raw" : "image", // ✅ Cambio aquí
+                format: fileExtension.replace(".", "")
             };
 
             console.log("📁 [CloudinaryStorage] Parámetros:", params);
@@ -107,14 +96,9 @@ const createMulterUpload = (baseFolder, categoryFolder, useMaterialName = false,
             if (req.file) {
                 console.log("   req.file.path:", req.file.path);
                 console.log("   req.file.filename:", req.file.filename);
-            }
-            
-            // Si hay archivo subido, agregar la URL a req.img
-            if (req.file && req.file.path) {
                 req.img = req.file.path;
                 console.log("✅ [cloudinary middleware] req.img asignado:", req.img);
             } else {
-                // Imagen por defecto si no se sube ninguna
                 req.img = "https://res.cloudinary.com/dwc4ynoj9/image/upload/v1750979813/defualtprofile_qiwkss.jpg";
                 console.log("⚠️ [cloudinary middleware] Usando imagen por defecto");
             }
@@ -126,6 +110,6 @@ const createMulterUpload = (baseFolder, categoryFolder, useMaterialName = false,
     return { single: (field) => middleware };
 };
 
-console.log("🔧 [cloudinary.js] Creando uploadUserImg...");
+// ✅ Crear instancia después de configurar
 export const uploadUserImg = createMulterUpload("user", "profilePicture", true);
 console.log("✅ [cloudinary.js] uploadUserImg creado exitosamente");
