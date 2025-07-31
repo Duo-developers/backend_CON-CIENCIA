@@ -1,13 +1,27 @@
 // /api/index.js
 import { config } from 'dotenv';
 import serverless from 'serverless-http';
-import { createApp } from '../config/server.js';
 
-console.log("[api/index.js] Cargando configuración...");
+// Configurar dotenv antes de importar otros módulos
 config();
 
-console.log("[api/index.js] Creando app Express...");
-const app = createApp();
+// Crear el handler
+const handler = async (req, res) => {
+    try {
+        // Importación dinámica para evitar problemas de inicialización
+        const { createApp } = await import('../config/server.js');
+        const app = createApp();
+        
+        // Usar serverless-http
+        const serverlessHandler = serverless(app);
+        return await serverlessHandler(req, res);
+    } catch (error) {
+        console.error('[api/index.js] Error:', error);
+        return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Internal Server Error' })
+        };
+    }
+};
 
-console.log("[api/index.js] Exportando handler...");
-export default serverless(app);
+export default handler;
