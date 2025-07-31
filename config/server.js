@@ -50,18 +50,13 @@ const connectDB = async () => {
     try {
         await dbConnection();
         console.log("[server.js] Conexión a MongoDB exitosa");
-
-        console.log("[server.js] Creando usuarios por defecto...");
-        await createDefaultUsers();
-
-        console.log("[server.js] Creando eventos por defecto...");
-        await createDefaultEvents();
-
-        console.log("[server.js] Creando artículos y comentarios por defecto...");
-        createDefaultArticlesAndComments();
+        
+        // NO ejecutar seeds en producción/serverless
+        // Solo conectar a la base de datos
+        
     } catch (error) {
         console.error("[server.js] Error al conectar a la base de datos:", error);
-        process.exit(1); 
+        throw error; // No usar process.exit en serverless
     }
 };
 
@@ -71,7 +66,7 @@ export const createApp = async () => {
 
     middlewares(app);
     
-    // Await la conexión a la base de datos
+    // Conectar a DB (sin seeds)
     await connectDB();
     
     routes(app);
