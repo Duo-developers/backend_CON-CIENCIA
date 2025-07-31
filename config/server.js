@@ -17,7 +17,10 @@ import { createDefaultUsers } from "../src/utils/defaultUser.js";
 
 const middlewares = (app) => {
     console.log("[server.js] Aplicando middlewares...");
+    
+    // Configuración para proxies (importante para Vercel)
     app.set('trust proxy', 1); 
+    
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
     app.use(cors({
@@ -28,6 +31,8 @@ const middlewares = (app) => {
     }));
     app.use(helmet());
     app.use(morgan("dev"));
+    
+    // Aplicar rate limiter después de trust proxy
     app.use(apiLimiter);
 };
 
