@@ -24,8 +24,7 @@ import {
     removeFavoriteEvent,
     getFavoriteEvents
 } from './user.controller.js';
-import { uploadProfileImage } from '../middlewares/multer-uploads.js';
-import { cloudinaryUploadSingle } from '../middlewares/image-uploads.js';
+import { uploadUserImg } from '../../config/cloudinary.js';
 import { validateJWT } from '../middlewares/validate-jwt.js'; 
 
 
@@ -237,7 +236,7 @@ router.put('/me', updateUserValidator, updateMe);
  *       500:
  *         description: Error del servidor
  */
-router.patch('/me/profile-picture', uploadProfileImage.single('image'), cloudinaryUploadSingle("profile-pictures"), updateProfilePictureValidator, updateProfilePicture);
+router.patch('/me/profile-picture', uploadUserImg.single("img"), updateProfilePictureValidator, updateProfilePicture);
 
 /**
  * @swagger

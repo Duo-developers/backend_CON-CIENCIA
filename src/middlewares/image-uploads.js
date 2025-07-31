@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import { imageUpload } from "../helpers/cloud-uploads.js";
+import { uploadUserImg } from "../../config/cloudinary.js";
 
 /**
  * Middleware: sube UNA imagen a Cloudinary y adjunta la URL en req.img
@@ -16,7 +16,7 @@ export const cloudinaryUploadSingle = (folder = "default") => {
                 return next();
             }
 
-            const { url } = await imageUpload(file, folder);
+            const { url } = await uploadUserImg(file, folder);
 
             req.img = url;
             return next();

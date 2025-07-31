@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import { registerValidator, loginValidator, forgotPasswordValidator, resetPasswordValidator } from '../middlewares/user-validator.js';
 import { register, login, forgotPassword, resetPassword } from './auth.controller.js';
-import { uploadProfileImage } from '../middlewares/multer-uploads.js';
-import { cloudinaryUploadSingle } from '../middlewares/image-uploads.js';
+import { uploadUserImg } from '../../config/cloudinary.js';
+
 
 /**
  * @swagger
@@ -142,7 +142,7 @@ const router = Router();
  *       500:
  *         description: Error del servidor
  */
-router.post('/register', uploadProfileImage.single("image"), cloudinaryUploadSingle("profile-pictures"), registerValidator, register);
+router.post('/register', uploadUserImg.single("img"), registerValidator, register);
 
 /**
  * @swagger

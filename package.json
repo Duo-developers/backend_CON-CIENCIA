@@ -24,7 +24,7 @@
   "dependencies": {
     "@sendgrid/mail": "^8.1.5",
     "argon2": "^0.43.0",
-    "cloudinary": "^2.7.0",
+    "cloudinary": "^1.41.3",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
@@ -37,9 +37,11 @@
     "mongoose": "^8.16.0",
     "morgan": "^1.10.0",
     "multer": "^2.0.1",
+    "multer-storage-cloudinary": "^3.0.0",
     "serverless-http": "^3.2.0",
     "streamifier": "^0.1.1",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^11.1.0"
   }
 }
