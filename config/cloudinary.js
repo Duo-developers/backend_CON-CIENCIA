@@ -1,13 +1,13 @@
 import multer from "multer";
 import { CloudinaryStorage } from "multer-storage-cloudinary";
-import cloudinary from "cloudinary"; // 👈 Importación correcta para la v1 del SDK
+import cloudinary from "cloudinary"; // Importación para la v1 del SDK
 import { extname } from "path";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from "uuid";
 
 dotenv.config();
 
-// 👇 Configuración correcta para la v1 del SDK
+// Configuración correcta y explícita para la v1 del SDK
 cloudinary.v2.config({
     cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -24,18 +24,15 @@ const sanitizeFileName = (name) => {
 
 const createMulterUpload = (baseFolder, categoryFolder) => {
     const storage = new CloudinaryStorage({
-        cloudinary: cloudinary.v2, // 👈 Se pasa cloudinary.v2 al constructor
-        params: async (req, file) => {
+        cloudinary: cloudinary.v2, // Se pasa el objeto cloudinary.v2
+        params: (req, file) => {
             const fileExtension = extname(file.originalname);
             const uniqueId = uuidv4().slice(0, 8);
-            let fileName = sanitizeFileName(file.originalname.split(fileExtension)[0]);
-
-            const publicId = `${fileName}-${uniqueId}`;
+            const fileName = sanitizeFileName(file.originalname.split(fileExtension)[0]);
 
             return {
                 folder: `${baseFolder}/${categoryFolder}`,
-                public_id: publicId,
-                format: fileExtension.replace(".", "")
+                public_id: `${fileName}-${uniqueId}`,
             };
         },
     });

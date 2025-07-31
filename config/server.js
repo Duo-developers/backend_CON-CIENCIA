@@ -24,7 +24,7 @@ const middlewares = (app) => {
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
     app.use(cors({
-        origin: ['http://localhost:5173', 'https://frontend-con-ciencia.vercel.app'],
+        origin: ['http://localhost:5173', 'https://deploy-con-ciencia-59724.web.app'],
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH','OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true
