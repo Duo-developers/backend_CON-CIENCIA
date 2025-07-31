@@ -1,3 +1,4 @@
+// config/server.js
 import express from "express";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -10,12 +11,12 @@ import commentRoutes from "../src/comment/comment.routes.js";
 import eventRoutes from "../src/event/event.routes.js";
 import reminderRoutes from "../src/reminder/reminder.routes.js"; 
 import { swaggerDocs } from './swagger.js';
-import dbConnection from "./mongo.js"
-import { createDefaultEvents, createDefaultArticlesAndComments } from "../src/utils/defaultContent.js"
-import { createDefaultUsers } from "../src/utils/defaultUser.js"
-
+import dbConnection from "./mongo.js";
+import { createDefaultEvents, createDefaultArticlesAndComments } from "../src/utils/defaultContent.js";
+import { createDefaultUsers } from "../src/utils/defaultUser.js";
 
 const middlewares = (app) => {
+    console.log("[server.js] Aplicando middlewares...");
     app.set('trust proxy', 1); 
     app.use(express.urlencoded({ extended: false }));
     app.use(express.json());
@@ -31,6 +32,7 @@ const middlewares = (app) => {
 };
 
 const routes = (app) => {
+    console.log("[server.js] Cargando rutas...");
     app.get("/", (req, res) => {
         res.json({
             message: "CON-CIENCIA API Backend",
@@ -54,25 +56,37 @@ const routes = (app) => {
     app.use("/conciencia/v1/comment", commentRoutes);
     app.use("/conciencia/v1/event", eventRoutes);
     app.use("/conciencia/v1/reminder", reminderRoutes);
-}
+};
 
 const connectDB = async () => {
+    console.log("[server.js] Conectando a base de datos...");
     try {
         await dbConnection();
+        console.log("[server.js] Conexión a MongoDB exitosa");
+
+        console.log("[server.js] Creando usuarios por defecto...");
         await createDefaultUsers();
+
+        console.log("[server.js] Creando eventos por defecto...");
         await createDefaultEvents();
+
+        console.log("[server.js] Creando artículos y comentarios por defecto...");
         createDefaultArticlesAndComments();
     } catch (error) {
-        console.error("Database connection failed:", error);
+        console.error("[server.js] Error al conectar a la base de datos:", error);
         process.exit(1); 
     }
-}
+};
 
 export const createApp = () => {
+    console.log("[server.js] Inicializando app Express...");
     const app = express();
+
     middlewares(app);
     connectDB();
     routes(app);
     swaggerDocs(app);
+
+    console.log("[server.js] App creada correctamente ✅");
     return app;
 };
