@@ -9,11 +9,12 @@ import articleRoutes from "../src/article/article.routes.js";
 import commentRoutes from "../src/comment/comment.routes.js";
 import eventRoutes from "../src/event/event.routes.js";
 import reminderRoutes from "../src/reminder/reminder.routes.js"; 
-import ServerlessHttp from "serverless-http";
+import serverless from "serverless-http";
 import { swaggerDocs } from './swagger.js';
 import dbConnection from "./mongo.js"
 import { createDefaultEvents, createDefaultArticlesAndComments } from "../src/utils/defaultContent.js"
 import { createDefaultUsers } from "../src/utils/defaultUser.js"
+import { serve } from "swagger-ui-express";
 
 const middlewares = (app) => {
     app.set('trust proxy', 1); 
@@ -70,7 +71,7 @@ const connectDB = async () => {
 
 export const createApp = () => {
     const app = express();
-    ServerlessHttp(app);
+    serverless(app);
     middlewares(app);
     connectDB();
     routes(app);
