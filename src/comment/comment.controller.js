@@ -30,10 +30,14 @@ export const commentArticle = async (req, res) => {
             message
         });
 
+        // Populate el autor para devolver información completa
+        const populatedComment = await Comment.findById(newComment._id)
+            .populate('author', 'username name perfil');
+
         return res.status(201).json({
             success: true,
             message: 'Comment created successfully',
-            comment: newComment
+            comment: populatedComment
         });
 
     } catch (error) {
@@ -69,10 +73,14 @@ export const editComment = async (req, res) => {
         comment.message = message;
         await comment.save();
 
+        // Populate el autor para devolver información completa
+        const populatedComment = await Comment.findById(comment._id)
+            .populate('author', 'username name perfil');
+
         return res.status(200).json({
             success: true,
             message: 'Comment updated successfully',
-            comment
+            comment: populatedComment
         });
 
     } catch (error) {
@@ -137,13 +145,42 @@ export const getCommentsByArticle = async (req, res) => {
         const { id } = req.params;
 
         const comments = await Comment.find({ article: id, status: true })
-            .populate('author', 'username')
+            .populate('author', 'username name perfil')
             .sort({ createdAt: -1 }); 
 
         return res.status(200).json({
             success: true,
             total: comments.length,
             comments
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+};
+
+export const getCommentById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const comment = await Comment.findById(id)
+            .populate('author', 'username name perfil')
+            .populate('article', 'title');
+
+        if (!comment) {
+            return res.status(404).json({
+                success: false,
+                message: 'Comment not found'
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            comment
         });
 
     } catch (error) {

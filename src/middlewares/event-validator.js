@@ -28,7 +28,6 @@ export const createEventValidator = [
 ];
 
 export const getEventsValidator = [
-    validateJWT,
     handleErrors
 ];
 
@@ -61,5 +60,11 @@ export const deleteEventValidator = [
     param("id").isMongoId().withMessage("The id is not valid"),
     param("id").custom(eventExists),
     validateField,
+    handleErrors
+];
+
+export const getMyEventsValidator = [
+    validateJWT,
+    hasRoles("TEACHER_ROLE", "ADMIN_ROLE"),
     handleErrors
 ];

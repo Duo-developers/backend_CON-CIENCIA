@@ -20,6 +20,10 @@ const userSchema = new Schema({
         type: String,
         trim: true
     },
+    perfilPublicId: {
+        type: String,
+        trim: true
+    },
     email: {
         type: String,
         required: true,

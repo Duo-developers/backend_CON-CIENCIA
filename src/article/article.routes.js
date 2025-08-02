@@ -4,14 +4,16 @@ import {
     getArticlesValidator,
     getArticleByIdValidator,
     updateArticleValidator,
-    deleteArticleValidator
+    deleteArticleValidator,
+    getMyArticlesValidator
 } from '../middlewares/article-validator.js';
 import {
     createArticle,
     getArticles,
     getArticleById,
     updateArticle,
-    deleteArticle
+    deleteArticle,
+    getMyArticles
 } from './article.controller.js';
 
 
@@ -179,6 +181,55 @@ router.get('/', getArticlesValidator, getArticles);
  *         description: Error del servidor
  */
 router.get('/:id', getArticleByIdValidator, getArticleById);
+
+// Routes for authenticated users to get their own articles
+/**
+ * @swagger
+ * /conciencia/v1/article/my-articles:
+ *   get:
+ *     summary: Obtener los artículos creados por el usuario autenticado
+ *     tags: [Articles]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Número máximo de artículos a retornar
+ *       - in: query
+ *         name: from
+ *         schema:
+ *           type: integer
+ *           default: 0
+ *         description: Número de artículos a saltar
+ *     responses:
+ *       200:
+ *         description: Lista de artículos del usuario
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Your articles retrieved successfully"
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Article'
+ *       401:
+ *         description: No autorizado
+ *       403:
+ *         description: No tienes permiso para acceder a este recurso
+ *       500:
+ *         description: Error del servidor
+ */
+router.get('/my-articles', getMyArticlesValidator, getMyArticles);
 
 // Admin teacher routes
 /**

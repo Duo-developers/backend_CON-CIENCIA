@@ -12,13 +12,13 @@ import eventRoutes from "../src/event/event.routes.js";
 import reminderRoutes from "../src/reminder/reminder.routes.js"; 
 import { swaggerDocs } from './swagger.js';
 import dbConnection from "./mongo.js";
+import { validateEnvironment } from "./env-validator.js";
 import { createDefaultEvents, createDefaultArticlesAndComments } from "../src/utils/defaultContent.js";
 import { createDefaultUsers } from "../src/utils/defaultUser.js";
 
 const middlewares = (app) => {
     console.log("[server.js] Aplicando middlewares...");
     
-    // Configuración para proxies (importante para Vercel)
     app.set('trust proxy', 1); 
     
     app.use(express.urlencoded({ extended: false }));
@@ -32,7 +32,6 @@ const middlewares = (app) => {
     app.use(helmet());
     app.use(morgan("dev"));
     
-    // Aplicar rate limiter después de trust proxy
     app.use(apiLimiter);
 };
 
@@ -51,22 +50,27 @@ const connectDB = async () => {
         await dbConnection();
         console.log("[server.js] Conexión a MongoDB exitosa");
         
-        // NO ejecutar seeds en producción/serverless
-        // Solo conectar a la base de datos
-        
     } catch (error) {
         console.error("[server.js] Error al conectar a la base de datos:", error);
-        throw error; // No usar process.exit en serverless
+        throw error;
     }
 };
 
 export const createApp = async () => {
     console.log("[server.js] Inicializando app Express...");
+    
+    // Validar variables de entorno críticas
+    try {
+        validateEnvironment();
+    } catch (error) {
+        console.error("[server.js] Error en validación de variables de entorno:", error.message);
+        process.exit(1);
+    }
+    
     const app = express();
 
     middlewares(app);
     
-    // Conectar a DB (sin seeds)
     await connectDB();
     
     routes(app);

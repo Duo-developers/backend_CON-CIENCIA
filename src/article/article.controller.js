@@ -163,3 +163,29 @@ export const deleteArticle = async (req, res) => {
         });
     }
 };
+
+export const getMyArticles = async (req, res) => {
+    try {
+        const { usuario } = req;
+        const { limit = 10, from = 0 } = req.query;
+
+        const articles = await Article.find({ author: usuario._id })
+            .populate('author', 'name email')
+            .sort({ createdAt: -1 })
+            .skip(Number(from))
+            .limit(Number(limit));
+
+        return res.status(200).json({
+            message: "Your articles retrieved successfully",
+            success: true,
+            data: articles
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Failed to retrieve your articles",
+            success: false,
+            error: error.message
+        });
+    }
+};

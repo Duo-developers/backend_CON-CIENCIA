@@ -18,6 +18,7 @@ import {
     updateMe,
     deleteUser,
     updateProfilePicture,
+    removeProfilePicture,
     updateRole,
     getUserLogged,
     addFavoriteEvent,
@@ -237,6 +238,49 @@ router.put('/me', updateUserValidator, updateMe);
  *         description: Error del servidor
  */
 router.patch('/me/profile-picture', uploadUserImg.single('image'), updateProfilePictureValidator, updateProfilePicture);
+
+/**
+ * @swagger
+ * /conciencia/v1/user/me/profile-picture:
+ *   delete:
+ *     summary: Eliminar foto de perfil
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Foto de perfil eliminada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 message:
+ *                   type: string
+ *                   example: "Imagen de perfil eliminada correctamente"
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                     perfil:
+ *                       type: string
+ *                       nullable: true
+ *       401:
+ *         description: No autorizado
+ *       404:
+ *         description: Usuario no encontrado
+ *       500:
+ *         description: Error del servidor
+ */
+router.delete('/me/profile-picture', validateJWT, removeProfilePicture);
 
 /**
  * @swagger

@@ -4,7 +4,8 @@ import {
     getEventsValidator,
     getEventByIdValidator,
     updateEventValidator,
-    deleteEventValidator
+    deleteEventValidator,
+    getMyEventsValidator
 } from '../middlewares/event-validator.js';
 
 import {
@@ -12,7 +13,8 @@ import {
     getAllEvents,
     getEventById,
     updateEvent,
-    deleteEvent
+    deleteEvent,
+    getMyEvents
 } from './event.controller.js';
 
 /**
@@ -157,6 +159,58 @@ const router = Router();
  *         description: Error del servidor
  */
 router.get('/', getEventsValidator, getAllEvents);
+
+// Routes for authenticated users to get their own events
+/**
+ * @swagger
+ * /conciencia/v1/event/my-events:
+ *   get:
+ *     summary: Obtener los eventos creados por el usuario autenticado
+ *     tags: [Events]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *           default: 10
+ *         description: Número máximo de eventos a retornar
+ *       - in: query
+ *         name: from
+ *         schema:
+ *           type: integer
+ *           default: 0
+ *         description: Número de eventos a saltar
+ *     responses:
+ *       200:
+ *         description: Lista de eventos del usuario
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: "Your events retrieved successfully"
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 total:
+ *                   type: integer
+ *                   description: Número total de eventos del usuario
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Event'
+ *       401:
+ *         description: No autorizado
+ *       403:
+ *         description: No tienes permiso para acceder a este recurso
+ *       500:
+ *         description: Error del servidor
+ */
+router.get('/my-events', getMyEventsValidator, getMyEvents);
 
 /**
  * @swagger

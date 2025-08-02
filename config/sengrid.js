@@ -10,7 +10,7 @@ const initSendGrid = () => {
 };
 
 export const sendReminderEmail = async (to, subject, html, text) => {
-    initSendGrid(); // ⚠️ aquí se asegura que .env ya esté cargado
+    initSendGrid();
     const msg = {
         to,
         from: process.env.SENDGRID_SENDER,

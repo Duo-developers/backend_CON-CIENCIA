@@ -3,13 +3,10 @@ import User from "../user/user.model.js"
 
 export const validateJWT = async (req, res, next) => {
     try {
-        console.log("Headers recibidos:", JSON.stringify(req.headers));
-        
         let tokenHeader = req.headers["authorization"] || req.headers["Authorization"];
         let token = null;
         
         if (tokenHeader) {
-            console.log("Header de autorización encontrado:", tokenHeader);
             token = tokenHeader.startsWith("Bearer ") ? tokenHeader.substring(7) : tokenHeader;
         } else {
             token = req.body.token || req.query.token;
@@ -21,8 +18,6 @@ export const validateJWT = async (req, res, next) => {
                 message: "No token provided in the request"
             });
         }
-
-        console.log("Token extraído:", token.substring(0, 20) + "...");
         
         const decoded = jwt.verify(token, process.env.SECRETORPRIVATEKEY);
         
@@ -32,8 +27,6 @@ export const validateJWT = async (req, res, next) => {
                 message: "Invalid token structure"
             });
         }
-        
-        console.log("Token verificado, UID:", decoded.uid);
         
         const user = await User.findById(decoded.uid);
         
@@ -52,12 +45,9 @@ export const validateJWT = async (req, res, next) => {
         }
 
         req.usuario = user;
-        console.log("Usuario autenticado:", user.username);
         next();
         
     } catch (err) {
-        console.error("Error en validateJWT:", err);
-        
         if (err.name === 'JsonWebTokenError') {
             return res.status(401).json({
                 success: false,

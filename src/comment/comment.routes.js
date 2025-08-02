@@ -9,7 +9,8 @@ import {
     commentArticle,
     editComment,
     deleteComment,
-    getCommentsByArticle
+    getCommentsByArticle,
+    getCommentById
 } from './comment.controller.js';
 
 /**
@@ -236,5 +237,38 @@ router.delete('/:id', deleteCommentValidator, deleteComment);
  *         description: Error del servidor
  */
 router.get('/article/:id', getCommentsByArticleValidator, getCommentsByArticle);
+
+/**
+ * @swagger
+ * /conciencia/v1/comment/single/{id}:
+ *   get:
+ *     summary: Obtener un comentario específico por ID
+ *     tags: [Comments]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del comentario
+ *     responses:
+ *       200:
+ *         description: Comentario encontrado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   example: true
+ *                 comment:
+ *                   $ref: '#/components/schemas/Comment'
+ *       404:
+ *         description: Comentario no encontrado
+ *       500:
+ *         description: Error del servidor
+ */
+router.get('/single/:id', getCommentById);
 
 export default router;

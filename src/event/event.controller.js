@@ -138,3 +138,33 @@ export const deleteEvent = async (req, res) => {
         });
     }
 };
+
+export const getMyEvents = async (req, res) => {
+    try {
+        const { usuario } = req;
+        const { limit = 10, from = 0 } = req.query;
+
+        const [events, total] = await Promise.all([
+            Event.find({ user: usuario._id, status: true })
+                .sort({ createdAt: -1 })
+                .skip(Number(from))
+                .limit(Number(limit)),
+            
+            Event.countDocuments({ user: usuario._id, status: true })
+        ]);
+
+        return res.status(200).json({
+            message: "Your events retrieved successfully",
+            success: true,
+            total,
+            data: events
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            message: "Failed to retrieve your events",
+            success: false,
+            error: error.message
+        });
+    }
+};

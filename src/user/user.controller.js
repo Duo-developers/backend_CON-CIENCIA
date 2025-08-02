@@ -1,6 +1,8 @@
 import User from './user.model.js';
 import { hash, verify } from 'argon2';
-
+import { deleteImageFromCloudinary } from '../../config/cloudinary.js';
+import { deleteImageByUrl } from '../../config/cloudinary.js';
+import { safeDeleteFile } from '../middlewares/delete-file-on-error.js';
 
 export const getUsers = async (req, res) => {
     try {
@@ -223,7 +225,16 @@ export const deleteUser = async (req, res) => {
             });
         }
 
-        const user = await User.findByIdAndUpdate(uid, { status: false }, { new: true });
+        // Eliminar la imagen de perfil de Cloudinary si existe
+        if (userFound.perfilPublicId) {
+            await safeDeleteFile(userFound.perfilPublicId, 'deleteUser');
+        }
+
+        const user = await User.findByIdAndUpdate(uid, { 
+            status: false,
+            perfil: null,
+            perfilPublicId: null
+        }, { new: true });
 
         return res.status(200).json({
             success: true,
@@ -255,18 +266,34 @@ export const updateProfilePicture = async (req, res) => {
             });
         }
 
-        const perfilUrl = req.file.path; 
-        const updatedUser = await User.findByIdAndUpdate(
-            usuario._id,
-            { perfil: perfilUrl },
-            { new: true }
-        );
-
-        if (!updatedUser) {
+        // Obtener el usuario actual para acceder a la foto de perfil anterior
+        const currentUser = await User.findById(usuario._id);
+        if (!currentUser) {
             return res.status(404).json({
                 success: false,
                 message: 'Usuario no encontrado'
             });
+        }
+
+        // Extraer el public ID de la nueva imagen subida
+        const newImagePublicId = req.file.filename; // Cloudinary devuelve el public_id en filename
+
+        // Preparar los datos de actualización
+        const updateData = {
+            perfil: req.file.path,
+            perfilPublicId: newImagePublicId
+        };
+
+        // Actualizar el usuario con la nueva imagen
+        const updatedUser = await User.findByIdAndUpdate(
+            usuario._id,
+            updateData,
+            { new: true }
+        );
+
+        // Eliminar la imagen anterior de Cloudinary si existe
+        if (currentUser.perfilPublicId && currentUser.perfilPublicId !== newImagePublicId) {
+            await safeDeleteFile(currentUser.perfilPublicId, 'updateProfilePicture');
         }
 
         return res.status(200).json({
@@ -435,6 +462,53 @@ export const getFavoriteEvents = async (req, res) => {
             success: false,
             message: 'Error fetching favorite events',
             error: error.message
+        });
+    }
+};
+
+export const removeProfilePicture = async (req, res) => {
+    try {
+        const { usuario } = req;
+
+        const currentUser = await User.findById(usuario._id);
+        if (!currentUser) {
+            return res.status(404).json({
+                success: false,
+                message: 'Usuario no encontrado'
+            });
+        }
+
+        // Eliminar la imagen de perfil de Cloudinary si existe
+        if (currentUser.perfilPublicId) {
+            await safeDeleteFile(currentUser.perfilPublicId, 'removeProfilePicture');
+        }
+
+        // Actualizar el usuario removiendo la foto de perfil
+        const updatedUser = await User.findByIdAndUpdate(
+            usuario._id,
+            { 
+                perfil: null,
+                perfilPublicId: null
+            },
+            { new: true }
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: 'Imagen de perfil eliminada correctamente',
+            user: {
+                id: updatedUser._id,
+                name: updatedUser.name,
+                email: updatedUser.email,
+                perfil: updatedUser.perfil
+            }
+        });
+
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al eliminar la imagen de perfil',
+            error: err.message
         });
     }
 };
