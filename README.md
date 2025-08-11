@@ -1,9 +1,3 @@
-¡Entendido! Comprendo perfectamente el estilo que buscas: más directo, centrado en las funcionalidades y sin los elementos visuales como badges o tablas de contenido.
-
-He reestructurado completamente el README para que se ajuste al ejemplo que me proporcionaste, combinando la información de tu proyecto "CON-CIENCIA" con ese formato.
-
-Aquí tienes la nueva versión del README:
-
 CON-CIENCIA API 🔬🔭
 This is the backend for CON-CIENCIA, a web platform that integrates an Interactive Scientific Blog and a Scientific Event Organizer. Developed with Node.js, Express, and MongoDB, it provides functionalities for administrators, teachers, and general users to create, share, and discuss scientific content and events.
 
